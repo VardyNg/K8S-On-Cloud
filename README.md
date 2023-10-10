@@ -1,6 +1,13 @@
 # Kubernetes on Clouds!
 This repository contains IaC scripts for deploying Kubernetes cluster on different Cloud Service Provider!
 
+## Table of Contents
+- Kubernetes-as-a-Service (KaaS)
+  - [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/)
+- Kubeadm
+  - v.126
+    - [Amazon Web Services(AWS)](/Kubeadm/1.26/AWS)
+
 ## How to use this repository
 This repository is organized in a way that you can easily find the script that you need. The folder structure is as follows:
 
