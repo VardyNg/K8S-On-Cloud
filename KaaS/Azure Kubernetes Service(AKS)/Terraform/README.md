@@ -33,3 +33,5 @@
 |------|-------------|------|---------|:--------:|
 | app_name | Name of the application | `string` | n/a | yes |
 | location | Location of the AKS cluster | `string` | n/a | yes |
+| node_vm_size | Size of the node VMs | `string` | n/a | yes |
+| node_count | Number of nodes in the cluster | `number` | n/a | yes |
