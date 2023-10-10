@@ -11,6 +11,6 @@ resource "aws_subnet" "main" {
   cidr_block = "10.0.1.0/24"
 
   tags = {
-    Name = "${var.cluster_name}-default-subnet}"
+    Name = "${var.cluster_name}-default-subnet"
   }
 }
