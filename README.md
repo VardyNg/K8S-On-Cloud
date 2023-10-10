@@ -10,6 +10,10 @@ This repository is organized in a way that you can easily find the script that y
 │   ├── [Kubernetes version]
 │   │   │  ├── [Cloud Service Provider]
 │   │   │  │   ├── [IaC tool]
+├── KaaS (Kubernetes as a Service)
+│   ├── [Cloud Service Provider's KaaS]
+│   │   ├── [IaC Script]
+
 ```
 Clone the project, run the script and you are good to go!
 
