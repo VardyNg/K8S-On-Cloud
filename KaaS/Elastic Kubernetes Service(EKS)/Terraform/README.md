@@ -29,3 +29,4 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | cluster_name | Name of the EKS cluster | `string` | `""` | yes |
+| subnet_az_list | List of AZs to create subnets in | `list(string)` | `[]` | yes |
