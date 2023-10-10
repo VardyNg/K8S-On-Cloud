@@ -7,10 +7,12 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "main" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
+  count = length(var.subnet_az_list)
 
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.${count.index}.0/24"
+  availability_zone = element(var.subnet_az_list, count.index)
   tags = {
-    Name = "${var.cluster_name}-default-subnet"
+    Name = "${var.cluster_name}-default-subnet-${element(var.subnet_az_list, count.index)}"
   }
 }
