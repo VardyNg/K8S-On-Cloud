@@ -18,3 +18,14 @@ variable "location_max_az" {
   type        = number
   default     = 3
 }
+
+variable "vm_admin_username" {
+  description = "value of the admin username for the VMs"
+  type        = string
+}
+
+variable "vm_admin_password" {
+  description = "value of the admin password for the VMs"
+  type        = string
+}
+
