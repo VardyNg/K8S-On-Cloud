@@ -4,6 +4,9 @@ This repository contains IaC scripts for deploying Kubernetes cluster on differe
 ## Table of Contents
 - Kubernetes-as-a-Service (KaaS)
   - [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/)
+    - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
+  - [Elastic Kubernetes Engine (EKS)](/KaaS/Elastic%20Kubernetes%20Engine%20%28EKS%29/README.md)
+    - [CloudFormation](/KaaS/Elastic%20Kubernetes%20Engine%20%28EKS%29/CloudFormation/README.md)
 - Kubeadm
   - v.126
     - [Amazon Web Services(AWS)](/Kubeadm/1.26/AWS)

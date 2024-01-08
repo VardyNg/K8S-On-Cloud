@@ -1,0 +1,304 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: K8S on AWS
+Parameters:
+  AppName:
+    Type: String
+    Default: k8s-on-cloud
+    Description: Name of the application
+  InstanceType:
+    Type: List<String>
+    Default: t3.2xlarge,t3.xlarge
+    Description: EC2 instance type
+
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      EnableDnsHostnames: True
+      EnableDnsSupport: True
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-vpc' 
+            - AppName: !Ref AppName
+
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: "10.0.1.0/24"
+      AvailabilityZone: !Select 
+        - 0
+        - Fn::GetAZs: ''
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-subnet1' 
+            - AppName: !Ref AppName
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: "10.0.2.0/24"
+      AvailabilityZone: !Select 
+        - 1
+        - Fn::GetAZs: ''
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-subnet2' 
+            - AppName: !Ref AppName
+
+  Subnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: "10.0.3.0/24"
+      AvailabilityZone: !Select 
+        - 2
+        - Fn::GetAZs: ''
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-subnet3' 
+            - AppName: !Ref AppName
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: "10.0.0.0/24"
+      AvailabilityZone: !Select 
+        - 0
+        - Fn::GetAZs: ''
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-public-subnet' 
+            - AppName: !Ref AppName
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: String
+      GroupName: String
+      SecurityGroupEgress: 
+        - IpProtocol: "-1"
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress: 
+        - IpProtocol: "-1"
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      VpcId: 
+        Ref: VPC
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-security-group' 
+            - AppName: !Ref AppName
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-igw' 
+            - AppName: !Ref AppName
+
+  VPCInternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  NATGatewayEIP:
+    Type: AWS::EC2::EIP
+
+  NATGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NATGatewayEIP.AllocationId
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-nat-gateway' 
+            - AppName: !Ref AppName
+  
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: VPC
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-private-route-table' 
+            - AppName: !Ref AppName
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: VPC
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - '${AppName}-public-route-table' 
+            - AppName: !Ref AppName
+
+  RouteNATGateway:
+    DependsOn: NATGateway
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      NatGatewayId: !Ref NATGateway
+
+  RoutePublicSubnet:
+    DependsOn: NATGateway
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref InternetGateway
+
+  Subnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: Subnet1
+      RouteTableId:
+        Ref: PrivateRouteTable
+
+  Subnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: Subnet2
+      RouteTableId:
+        Ref: PrivateRouteTable
+  
+  Subnet3RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: Subnet3
+      RouteTableId:
+        Ref: PrivateRouteTable
+  
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet
+      RouteTableId:
+        Ref: PublicRouteTable
+
+  EKSRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName:
+        !Sub
+          - '${AppName}-cluster-role' 
+          - AppName: !Ref AppName
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - eks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
+
+  EKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name:
+        !Sub
+          - '${AppName}-cluster' 
+          - AppName: !Ref AppName
+      Version: "1.28"
+      RoleArn:
+        "Fn::GetAtt": ["EKSRole", "Arn"]
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - Ref: SecurityGroup
+        SubnetIds:
+          - Ref: Subnet1
+          - Ref: Subnet2
+          - Ref: Subnet3
+        EndpointPublicAccess: true
+        EndpointPrivateAccess: false
+        PublicAccessCidrs: [ "0.0.0.0/0" ]
+  
+  EKSNodeGroupRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+          - '${AppName}-cluster-node-role' 
+          - AppName: !Ref AppName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+
+  EKSNodegroup:
+    Type: 'AWS::EKS::Nodegroup'
+    Properties:
+      ClusterName:
+        Ref: EKSCluster
+      CapacityType: SPOT
+      NodeRole: 
+        "Fn::GetAtt": ["EKSNodeGroupRole", "Arn"]
+      ScalingConfig:
+        MinSize: 3
+        DesiredSize: 5
+        MaxSize: 7
+      Subnets:
+        - Ref: Subnet1
+        - Ref: Subnet2
+        - Ref: Subnet3
+      InstanceTypes: !Ref InstanceType
+
+  EKSAddOnKubeProxy:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: kube-proxy
+      ClusterName:
+        Ref: EKSCluster
+
+  EKSAddOnCoreDNS:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: coredns
+      ClusterName:
+        Ref: EKSCluster
+  
+  EKSAddOnCNI:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: vpc-cni
+      ClusterName:
+        Ref: EKSCluster
