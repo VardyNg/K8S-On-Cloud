@@ -87,8 +87,11 @@ Resources:
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: String
-      GroupName: String
+      GroupName:
+        !Sub
+            - '${AppName}-security-group' 
+            - AppName: !Ref AppName
+      GroupDescription: 'Security Group for EKS Cluster'
       SecurityGroupEgress: 
         - IpProtocol: "-1"
           FromPort: -1
