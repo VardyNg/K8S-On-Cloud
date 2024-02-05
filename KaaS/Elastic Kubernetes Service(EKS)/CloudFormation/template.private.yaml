@@ -3,7 +3,7 @@ Description: K8S on AWS
 Parameters:
   AppName:
     Type: String
-    Default: k8s-on-cloud
+    Default: private-k8s-on-cloud
     Description: Name of the application
   InstanceType:
     Type: List<String>
@@ -69,21 +69,6 @@ Resources:
             - '${AppName}-subnet3' 
             - AppName: !Ref AppName
 
-  PublicSubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId:
-        Ref: VPC
-      CidrBlock: "10.0.0.0/24"
-      AvailabilityZone: !Select 
-        - 0
-        - Fn::GetAZs: ''
-      Tags:
-        - Key: Name
-          Value: !Sub
-            - '${AppName}-public-subnet' 
-            - AppName: !Ref AppName
-
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -109,105 +94,6 @@ Resources:
           Value: !Sub
             - '${AppName}-security-group' 
             - AppName: !Ref AppName
-
-  InternetGateway:
-    Type: AWS::EC2::InternetGateway
-    Properties:
-      Tags:
-        - Key: Name
-          Value: !Sub
-            - '${AppName}-igw' 
-            - AppName: !Ref AppName
-
-  VPCInternetGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      InternetGatewayId: !Ref InternetGateway
-      VpcId: !Ref VPC
-
-  NATGatewayEIP:
-    Type: AWS::EC2::EIP
-
-  NATGateway:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt NATGatewayEIP.AllocationId
-      SubnetId: !Ref PublicSubnet
-      Tags:
-        - Key: Name
-          Value: !Sub
-            - '${AppName}-nat-gateway' 
-            - AppName: !Ref AppName
-  
-  PrivateRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId:  
-        Ref: VPC
-      Tags:
-        - Key: Name
-          Value: !Sub
-            - '${AppName}-private-route-table' 
-            - AppName: !Ref AppName
-
-  PublicRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId:  
-        Ref: VPC
-      Tags:
-        - Key: Name
-          Value: !Sub
-            - '${AppName}-public-route-table' 
-            - AppName: !Ref AppName
-
-  RouteNATGateway:
-    DependsOn: NATGateway
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId: !Ref PrivateRouteTable
-      DestinationCidrBlock: '0.0.0.0/0'
-      NatGatewayId: !Ref NATGateway
-
-  RoutePublicSubnet:
-    DependsOn: NATGateway
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId: !Ref InternetGateway
-
-  Subnet1RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId:
-        Ref: Subnet1
-      RouteTableId:
-        Ref: PrivateRouteTable
-
-  Subnet2RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId:
-        Ref: Subnet2
-      RouteTableId:
-        Ref: PrivateRouteTable
-  
-  Subnet3RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId:
-        Ref: Subnet3
-      RouteTableId:
-        Ref: PrivateRouteTable
-  
-  PublicSubnetRouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId:
-        Ref: PublicSubnet
-      RouteTableId:
-        Ref: PublicRouteTable
 
   EKSRole:
     Type: 'AWS::IAM::Role'
@@ -246,8 +132,8 @@ Resources:
           - Ref: Subnet1
           - Ref: Subnet2
           - Ref: Subnet3
-        EndpointPublicAccess: true
-        EndpointPrivateAccess: false
+        EndpointPublicAccess: false
+        EndpointPrivateAccess: true
         PublicAccessCidrs: [ "0.0.0.0/0" ]
   
   EKSNodeGroupRole:
