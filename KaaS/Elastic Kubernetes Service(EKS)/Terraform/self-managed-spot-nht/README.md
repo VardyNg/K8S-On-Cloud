@@ -1,0 +1,1 @@
+This template provision an EKS cluster and configure the IAM role for the pods to assume the role. 
