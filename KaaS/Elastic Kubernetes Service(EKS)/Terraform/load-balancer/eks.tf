@@ -11,7 +11,7 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_groups = {
-    initial = {
+    test = {
       instance_types = ["m5.large"]
 
       amiType      = "AL2_x86_64"
