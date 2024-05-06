@@ -9,7 +9,7 @@ This repository contains IaC scripts for deploying Kubernetes cluster on differe
   - [Elastic Kubernetes Service (EKS)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/)
     - [CloudFormation](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/CloudFormation/README.md)
     - Terraform
-      - [Pod IAM Permissions](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/pod-iam-permission/README.md)
+      - [IAM Roles for Service Accounts (IRSA)](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/irsa/README.md)
       - [Load Balancer](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/load-balancer/README.md)
       - [Pod Identity](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/pod-identity/README.md)
       - [Pod mount EFS Volume](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/pod-mount-efs-volume/README.md)
