@@ -70,3 +70,4 @@ Please refer to [Terraform.md](../../../../Terraform.md)
 ### Test
 This sample is tested in the following region(s)
 - us-east-1
+- cn-north-1
