@@ -66,7 +66,7 @@ resource "kubernetes_deployment_v1" "default" {
           image = "nginx:1.21.6"
           name  = "app"
           command = ["/bin/sh"]
-          args = ["-c", "while true; do echo $(date -u) >> /data/out; sleep 5; done"]
+          args = ["-c", "while true; do echo \"$(date -u) $(cat /etc/hostname)\" >> /data/out; sleep 5; done"]
 
           volume_mount {
             name = "persistent-storage"
