@@ -5,7 +5,8 @@
       "Effect": "Allow",
       "Action": [
         "elasticfilesystem:DescribeAccessPoints",
-        "elasticfilesystem:DescribeFileSystems"
+        "elasticfilesystem:DescribeFileSystems",
+        "elasticfilesystem:TagResource"
       ],
       "Resource": "*"
     },
