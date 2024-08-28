@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pod-mount-s3-bucket
+  namespace: pod-mount-s3-bucket-namespace
+spec:
+  accessModes:
+    - ReadWriteMany # supported options: ReadWriteMany / ReadOnlyMany
+  storageClassName: "" # required for static provisioning
+  resources:
+    requests:
+      storage: 3Gi # ignored, required
+  volumeName: pod-mount-s3-bucket
