@@ -13,10 +13,11 @@ resource "kubernetes_storage_class_v1" "efs-sc" {
   storage_provisioner = "efs.csi.aws.com"
   mount_options = ["tls"]
   parameters = {
-    file_system_id    = aws_efs_file_system.default.id
+    fileSystemId      = aws_efs_file_system.default.id
     provisioningMode  = "efs-ap"
     directoryPerms    = "700"
   }
+  depends_on = [ aws_efs_file_system.default ]
 }
 
 resource "kubernetes_persistent_volume_claim_v1" "default" {
