@@ -5,3 +5,7 @@ variable "domain_1" {
 variable "domain_2" {
   type = string
 }
+
+variable "region" {
+  type = string
+}
