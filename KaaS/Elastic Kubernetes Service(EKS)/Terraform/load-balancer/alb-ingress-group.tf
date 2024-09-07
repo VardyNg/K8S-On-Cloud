@@ -1,6 +1,6 @@
 resource "kubernetes_ingress_v1" "nginx-1" {
   metadata {
-    name = "nginx-ingress-1"
+    name = "alb-ingress-1"
     annotations = {
       "alb.ingress.kubernetes.io/scheme": "internet-facing"
       "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
@@ -35,7 +35,7 @@ resource "kubernetes_ingress_v1" "nginx-1" {
 
 resource "kubernetes_ingress_v1" "nginx-2" {
   metadata {
-    name = "nginx-ingress-2"
+    name = "alb-ingress-2"
     annotations = {
       "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
       "alb.ingress.kubernetes.io/healthcheck-port": 80

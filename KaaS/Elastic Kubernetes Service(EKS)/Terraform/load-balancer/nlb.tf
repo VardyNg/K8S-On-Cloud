@@ -1,51 +1,22 @@
-resource "kubernetes_ingress_v1" "nginx-3" {
+resource "kubernetes_service_v1" "nlb-1" {
   metadata {
-    name = "nginx-ingress-3"
+    name = "nlb-service-1"
     annotations = {
-      "alb.ingress.kubernetes.io/scheme": "internal"
-      "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
-      "alb.ingress.kubernetes.io/healthcheck-port": 80
-      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}, {"HTTPS": 443}])
-      "alb.ingress.kubernetes.io/target-type": "ip"
-      "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
+      "service.beta.kubernetes.io/aws-load-balancer-type": "external"
+      "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type": "ip"
     }
   }
 
   spec {
-    ingress_class_name = "alb"
-
-    rule {
-      http {
-        path {
-          path_type = "Prefix"
-          path = "/prefix"
-          backend {
-            service {
-              name = kubernetes_service_v1.nginx.metadata.0.name
-              port {
-                number = 80
-              }
-            }
-          }
-        }
-      }
+    selector = {
+      app = "nginx"
     }
 
-    rule {
-      http {
-        path {
-          path_type = "Exact"
-          path = "/test/"
-          backend {
-            service {
-              name = kubernetes_service_v1.nginx.metadata.0.name
-              port {
-                number = 80
-              }
-            }
-          }
-        }
-      }
+    port {
+      port        = 80
+      target_port = 80
     }
+
+    type = "LoadBalancer"
   }
 }

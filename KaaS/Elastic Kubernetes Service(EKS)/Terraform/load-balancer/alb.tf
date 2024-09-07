@@ -1,0 +1,51 @@
+resource "kubernetes_ingress_v1" "nginx-3" {
+  metadata {
+    name = "alb-ingress-3"
+    annotations = {
+      "alb.ingress.kubernetes.io/scheme": "internal"
+      "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
+      "alb.ingress.kubernetes.io/healthcheck-port": 80
+      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}, {"HTTPS": 443}])
+      "alb.ingress.kubernetes.io/target-type": "ip"
+      "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
+    }
+  }
+
+  spec {
+    ingress_class_name = "alb"
+
+    rule {
+      http {
+        path {
+          path_type = "Prefix"
+          path = "/prefix"
+          backend {
+            service {
+              name = kubernetes_service_v1.nginx.metadata.0.name
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+
+    rule {
+      http {
+        path {
+          path_type = "Exact"
+          path = "/test/"
+          backend {
+            service {
+              name = kubernetes_service_v1.nginx.metadata.0.name
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
