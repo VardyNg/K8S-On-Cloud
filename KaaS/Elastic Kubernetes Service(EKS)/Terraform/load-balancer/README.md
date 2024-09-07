@@ -7,10 +7,12 @@
 - EKS cluster v1.29
 - K8s NGINX Deployment and Service
 - Certs for domain hosted in ACM
-- Ingresses that will deploy TWO Application Load Balancer (ALB) via Ingress annotations observed by the LBC
+- Ingresses that will deploy 2 Application Load Balancer (ALB) via Ingress annotations observed by the LBC
   - Multiple Ingress, same IngressGroup
     - `kubernetes_ingress_v1.nginx-1`
     - `kubernetes_ingress_v1.nginx-2` 
   - Signle Ingress, multiple Rule
     - `kubernetes_ingress_v1.nginx-3`
+- Services that will deploy a Network Load Balancer
+  - `kubernetes_service_v1.nlb-1`
 ---
