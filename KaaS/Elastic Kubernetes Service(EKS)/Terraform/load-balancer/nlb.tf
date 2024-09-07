@@ -10,14 +10,13 @@ resource "kubernetes_ingress_v1" "nginx-1" {
       "alb.ingress.kubernetes.io/group.name" = "sample-ingress-group"
       "alb.ingress.kubernetes.io/group.order" = 1
       "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
-      "alb.ingress.kubernetes.io/certificate-arn" = "${aws_acm_certificate.ingress-1.arn}"
     }
   }
 
   spec {
     ingress_class_name = "alb"
     rule {
-      host = "*.${var.domain_2}"
+      host = "*.abc.com"
       http {
         path {
           path = "/hello/"
@@ -46,7 +45,6 @@ resource "kubernetes_ingress_v1" "nginx-2" {
       "alb.ingress.kubernetes.io/group.name" = "sample-ingress-group"
       "alb.ingress.kubernetes.io/group.order" = 2
       "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
-      "alb.ingress.kubernetes.io/certificate-arn" = "${aws_acm_certificate.ingress-2.arn}"
     }
   }
 
@@ -54,7 +52,7 @@ resource "kubernetes_ingress_v1" "nginx-2" {
     ingress_class_name = "alb"
 
     rule {
-      host = "*.${var.domain_2}"
+      host = "*.abc.com"
       http {
         path {
           path = "/test/"
@@ -82,7 +80,6 @@ resource "kubernetes_ingress_v1" "nginx-3" {
       "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}, {"HTTPS": 443}])
       "alb.ingress.kubernetes.io/target-type": "ip"
       "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
-      "alb.ingress.kubernetes.io/certificate-arn" = "${aws_acm_certificate.ingress-1.arn},${aws_acm_certificate.ingress-2.arn}"
     }
   }
 
@@ -90,7 +87,7 @@ resource "kubernetes_ingress_v1" "nginx-3" {
     ingress_class_name = "alb"
 
     rule {
-      host = "*.${var.domain_1}"
+      host = "*.efg.com"
       http {
         path {
           path_type = "Prefix"
@@ -108,7 +105,7 @@ resource "kubernetes_ingress_v1" "nginx-3" {
     }
 
     rule {
-      host = "*.${var.domain_2}"
+      host = "*.abc.com"
       http {
         path {
           path_type = "Exact"
