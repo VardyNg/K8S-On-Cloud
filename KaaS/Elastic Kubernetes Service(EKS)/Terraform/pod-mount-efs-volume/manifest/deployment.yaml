@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-mount-efs-volume
+  namespace: pod-mount-efs-volume-namespace
+  labels:
+    app: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: default
+  template:
+    metadata:
+      labels:
+        app: default
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.21.6
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo $(date -u) >> /data/out; sleep 5; done"]
+          volumeMounts:
+            - name: persistent-storage
+              mountPath: /data
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: pod-mount-efs-volume

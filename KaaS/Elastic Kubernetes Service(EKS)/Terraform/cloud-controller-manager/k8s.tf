@@ -1,12 +1,13 @@
-resource "kubernetes_namespace" "sample-app" {
+
+resource "kubernetes_namespace_v1" "ns" {
   metadata {
-    name = "sample-app"
+    name = "${local.name}-namespace"
   }
 }
 
 resource "kubernetes_deployment" "nginx" {
   metadata {
-    name = "nginx-deployment"
+    name = "${local.name}-deployment"
     labels = {
       app = "nginx"
     }
@@ -40,9 +41,9 @@ resource "kubernetes_deployment" "nginx" {
   }
 }
 
-resource "kubernetes_service_v1" "nginx" {
+resource "kubernetes_service_v1" "classic_load_balancer" {
   metadata {
-    name = "nginx-service"
+    name = "${local.name}-clb"
   }
 
   spec {
@@ -55,6 +56,29 @@ resource "kubernetes_service_v1" "nginx" {
       target_port = 80
     }
 
-    type = "ClusterIP"
+    type = "LoadBalancer"
+  }
+}
+
+resource "kubernetes_service_v1" "network_load_balancer" {
+  metadata {
+    name = "${local.name}-nlb"
+
+    annotations = {
+      "service.beta.kubernetes.io/aws-load-balancer-type": "nlb"
+    }
+  }
+
+  spec {
+    selector = {
+      app = "nginx"
+    }
+
+    port {
+      port        = 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
   }
 }

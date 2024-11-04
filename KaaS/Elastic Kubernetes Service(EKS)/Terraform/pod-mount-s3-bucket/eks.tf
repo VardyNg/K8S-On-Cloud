@@ -11,7 +11,7 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_groups = {
-    test = {
+    initial = {
       instance_types = ["m5.large"]
 
       amiType      = "AL2_x86_64"
@@ -35,6 +35,13 @@ module "eks" {
           }
         }
       }
+    }
+  }
+
+  cluster_addons = {
+    aws-mountpoint-s3-csi-driver ={
+      most_recent = true
+      service_account_role_arn = aws_iam_role.s3_role.arn
     }
   }
 

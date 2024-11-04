@@ -26,7 +26,7 @@ resource "kubernetes_pod_v1" "pod" {
 
   spec {
     container {
-      image = "aws/aws-cli"
+      image = "amazon/aws-cli"
       name  = "awscli" 
       args = ["s3", "ls"]
     }
