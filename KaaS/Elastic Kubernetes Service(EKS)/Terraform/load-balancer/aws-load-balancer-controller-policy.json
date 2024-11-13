@@ -32,7 +32,7 @@
               "elasticloadbalancing:DescribeLoadBalancers",
               "elasticloadbalancing:DescribeLoadBalancerAttributes",
               "elasticloadbalancing:DescribeListeners",
-              "elasticloadbalancing:DescribeListenerjAttributes",
+              "elasticloadbalancing:DescribeListenerAttributes",
               "elasticloadbalancing:DescribeListenerCertificates",
               "elasticloadbalancing:DescribeSSLPolicies",
               "elasticloadbalancing:DescribeRules",
