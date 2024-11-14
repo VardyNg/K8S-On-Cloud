@@ -1,0 +1,29 @@
+controller:
+  replicaCount: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  ingressClassByName: true
+
+  ingressClassResource:
+    name: prod-public-ingress
+    enabled: true
+    default: false
+    controllerValue: "k8s.io/ingress-nginx-public"
+
+  ingressClass: prod-public-ingress
+
+  service: 
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+      service.beta.kubernetes.io/aws-load-balancer-subnets: "${subnetA}, ${subnetB}, ${subnetC}"
+    spec:
+      loadBalancerClass: service.k8s.aws/nlb
+    external:
+      enabled: true
+    
