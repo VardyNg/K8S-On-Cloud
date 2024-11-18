@@ -1,0 +1,1 @@
+## This template illustrate the use of custom launch template in Managed Node Group
