@@ -17,7 +17,7 @@ module "eks" {
       amiType      = "AL2_x86_64"
       min_size     = 1
       max_size     = 5
-      desired_size = 2
+      desired_size = 1
     }
   }
 

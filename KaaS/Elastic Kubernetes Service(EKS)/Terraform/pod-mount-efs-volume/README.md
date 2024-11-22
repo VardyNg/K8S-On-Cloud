@@ -1,4 +1,4 @@
-### This template demostrate the use of EKS Pod mount EFS Volume (Dynamic Provisioning)
+### This template demostrate the use of EKS Pod mount EFS Volume (Static Provisioning)
 
 ### Content
 - VPC, Subnet, Security Group ... for the EKS cluster
@@ -7,6 +7,7 @@
 - IAM Role for the add-on aws-efs-csi-driver (`aws_iam_role.efs_role"`) (IRSA)
 - IAM policy attached to the role and allow listing s3 buckets (`"aws_iam_policy.efs_controller"`)
 - Kubernetes namespace, storage calss, pvc, and sample deployment (see [k8s.tf](k8s.tf))
+- An EFS Volume 
 
 ### Reference:
 https://github.com/kubernetes-sigs/aws-efs-csi-driver/tree/master/examples/kubernetes/dynamic_provisioning

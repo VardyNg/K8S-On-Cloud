@@ -11,11 +11,14 @@ resource "kubernetes_storage_class_v1" "efs-sc" {
     name = "efs-sc"
   }
   storage_provisioner = "efs.csi.aws.com"
-  mount_options = ["tls"]
+  mount_options = ["tls", "iam"]
   parameters = {
     fileSystemId      = aws_efs_file_system.default.id
     provisioningMode  = "efs-ap"
     directoryPerms    = "700"
+    gidRangeEnd       = 2000
+    gidRangeStart     = 1000
+    accessPointId     = aws_efs_access_point.efs.id
   }
   depends_on = [ aws_efs_file_system.default ]
 }
@@ -46,7 +49,7 @@ resource "kubernetes_deployment_v1" "default" {
   }
 
   spec {
-    replicas = 3
+    replicas = 1
 
     selector {
       match_labels = {
@@ -71,7 +74,7 @@ resource "kubernetes_deployment_v1" "default" {
           volume_mount {
             name = "persistent-storage"
             mount_path = "/data"
-          }
+          } 
         }
 
         volume {
@@ -79,6 +82,11 @@ resource "kubernetes_deployment_v1" "default" {
           persistent_volume_claim {
             claim_name = kubernetes_persistent_volume_claim_v1.default.metadata.0.name
           }
+        }
+
+        security_context {
+          run_as_user  = "1000"
+          run_as_group = "1000"
         }
       }
       

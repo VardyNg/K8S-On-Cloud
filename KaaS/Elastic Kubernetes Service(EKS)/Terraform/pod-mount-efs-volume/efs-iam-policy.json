@@ -5,6 +5,7 @@
       "Effect": "Allow",
       "Action": [
         "elasticfilesystem:DescribeAccessPoints",
+        "elasticfilesystem:",
         "elasticfilesystem:DescribeFileSystems",
         "elasticfilesystem:TagResource"
       ],
@@ -31,6 +32,14 @@
           "aws:ResourceTag/efs.csi.aws.com/cluster": "true"
         }
       }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:ClientWrite",
+        "elasticfilesystem:ClientMount"
+      ],
+      "Resource": "*"
     }
   ]
 }
