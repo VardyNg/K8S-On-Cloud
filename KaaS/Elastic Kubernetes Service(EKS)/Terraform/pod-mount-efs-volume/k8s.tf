@@ -83,13 +83,7 @@ resource "kubernetes_deployment_v1" "default" {
             claim_name = kubernetes_persistent_volume_claim_v1.default.metadata.0.name
           }
         }
-
-        security_context {
-          run_as_user  = "1000"
-          run_as_group = "1000"
-        }
       }
-      
     }
   }
 }
