@@ -41,7 +41,7 @@ resource "aws_security_group" "efs-mount-target" {
 data "aws_iam_policy_document" "efs-policy" {
 
   statement {
-    effect = "Deny"
+    effect = "Allow"
 
     principals {
       type        = "AWS" 
