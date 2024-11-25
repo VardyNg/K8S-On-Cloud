@@ -8,7 +8,7 @@ resource "random_id" "random_string" {
   byte_length = 2
 }
 locals {
-  name   = "${basename(path.cwd)}-${random_id.random_string}"
+  name   = "${basename(path.cwd)}-${substr(base64encode(random_id.random_string.b64_url), 0, 3)}"
   region = var.region
 
   vpc_cidr = "10.0.0.0/16"
