@@ -54,6 +54,15 @@ data "aws_iam_policy_document" "efs-policy" {
     ]
 
     resources = [aws_efs_file_system.default.arn]
+
+
+    condition {
+      test     = "Bool"
+      variable = "elasticfilesystem:AccessedViaMountTarget"
+      values   = [
+        "true"
+      ]
+    }
   }
 
   statement {
@@ -84,14 +93,6 @@ data "aws_iam_policy_document" "efs-policy" {
       variable = "elasticfilesystem:AccessPointArn"
       values   = [
         aws_efs_access_point.efs.arn
-      ]
-    }
-
-    condition {
-      test     = "Bool"
-      variable = "elasticfilesystem:AccessedViaMountTarget"
-      values   = [
-        "true"
       ]
     }
   }
