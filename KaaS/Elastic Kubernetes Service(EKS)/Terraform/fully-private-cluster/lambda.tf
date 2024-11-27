@@ -84,8 +84,8 @@ resource "aws_lambda_layer_version" "lambda_layer" {
   source_code_hash    = filebase64sha256(data.archive_file.layer_zip.output_path)
 }
 
-resource "aws_lambda_function" "eks_lambda" {
-  function_name    = "${local.name}-lambda"
+resource "aws_lambda_function" "eks_lambda_same_subnet" {
+  function_name    = "${local.name}-lambda-same_subnet"
   filename         = data.archive_file.function_zip.output_path
   role             = aws_iam_role.lambda_execution_role.arn
   handler          = "index.lambda_handler"
@@ -105,3 +105,4 @@ resource "aws_lambda_function" "eks_lambda" {
     }
   }
 }
+
