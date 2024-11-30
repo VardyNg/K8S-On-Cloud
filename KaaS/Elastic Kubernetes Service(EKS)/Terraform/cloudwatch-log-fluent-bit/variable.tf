@@ -5,3 +5,8 @@ variable "fluent_bit_http_port" {
 variable "fluent_bit_read_from_head" {
   default = "Off"
 }
+
+variable "eks_version" {
+  type = string
+  default = "1.31"
+}
