@@ -7,10 +7,30 @@ on:
   pull_request:
 
 jobs:
-  terraform-validate:
-    name: Validate Terraform
+  find-directories:
+    name: Find Terraform Directories
     runs-on: ubuntu-latest
+    outputs:
+      directories: ${{ steps.get-dirs.outputs.dirs }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      - name: Find directories with Terraform projects
+        id: get-dirs
+        run: |
+          dirs=$(find . -type f -name "*.tf" -print0 | xargs -0 -n1 dirname | sort -u)
+          echo "::set-output name=dirs::$(echo $dirs | jq -R -s -c 'split("\n")[:-1]')"
+        env:
+          PATH: /usr/bin:/bin
+
+  validate:
+    name: Validate Terraform Projects
+    needs: find-directories
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory: ${{ fromJson(needs.find-directories.outputs.directories) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -18,26 +38,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Find Terraform directories
-        id: find-terraform-dirs
+      - name: Validate Terraform in directory
+        working-directory: ${{ matrix.directory }}
         run: |
-          dirs=$(find . -type f -name "main.tf" -exec dirname {} \; | sort | uniq)
-          echo "::set-output name=dirs::${dirs}"
-
-      - name: Find and validate all Terraform configurations
-        shell: bash
-        run: |
-          # Find all directories containing *.tf files
-          find . -type f -name "*.tf" -print0 | xargs -0 -n1 dirname | sort -u | while IFS= read -r dir; do
-            echo "Validating Terraform configuration in '${dir}'"
-            cd "${dir}" || exit
-
-            # Initialize Terraform without backend to prevent remote state issues
-            terraform init -backend=false
-
-            # Validate the configuration
-            terraform validate
-
-            # Return to the root directory
-            cd - > /dev/null
-          done
+          echo "Validating Terraform configuration in '${{ matrix.directory }}'"
+          terraform init -backend=false
+          terraform validate
