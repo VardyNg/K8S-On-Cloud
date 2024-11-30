@@ -24,12 +24,20 @@ jobs:
           dirs=$(find . -type f -name "main.tf" -exec dirname {} \; | sort | uniq)
           echo "::set-output name=dirs::${dirs}"
 
-      - name: Run Terraform Validation
+      - name: Find and validate all Terraform configurations
+        shell: bash
         run: |
-          for dir in ${{ steps.find-terraform-dirs.outputs.dirs }}; do
-            echo "Validating $dir"
-            cd $dir
+          # Find all directories containing *.tf files
+          find . -type f -name "*.tf" -print0 | xargs -0 -n1 dirname | sort -u | while IFS= read -r dir; do
+            echo "Validating Terraform configuration in '${dir}'"
+            cd "${dir}" || exit
+
+            # Initialize Terraform without backend to prevent remote state issues
             terraform init -backend=false
+
+            # Validate the configuration
             terraform validate
-            cd - || exit
+
+            # Return to the root directory
+            cd - > /dev/null
           done
