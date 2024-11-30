@@ -20,7 +20,9 @@ jobs:
         id: get-dirs
         run: |
           dirs=$(find . -type f -name "*.tf" -print0 | xargs -0 -n1 dirname | sort -u)
-          echo "::set-output name=dirs::$(echo $dirs | jq -R -s -c 'split("\n")[:-1]')"
+          dirs_json=$(echo "$dirs" | jq -R -s -c 'split("\n")[:-1]')
+          echo "Found directories: $dirs_json"
+          echo "::set-output name=dirs::$dirs_json"
         env:
           PATH: /usr/bin:/bin
 
