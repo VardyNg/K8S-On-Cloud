@@ -1,0 +1,35 @@
+name: Terraform Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform-validate:
+    name: Validate Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Find Terraform directories
+        id: find-terraform-dirs
+        run: |
+          dirs=$(find . -type f -name "main.tf" -exec dirname {} \; | sort | uniq)
+          echo "::set-output name=dirs::${dirs}"
+
+      - name: Run Terraform Validation
+        run: |
+          for dir in ${{ steps.find-terraform-dirs.outputs.dirs }}; do
+            echo "Validating $dir"
+            cd $dir
+            terraform init -backend=false
+            terraform validate
+            cd - || exit
+          done
