@@ -1,4 +1,5 @@
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 # Kubernetes on Clouds!
 This repository contains IaC scripts to deploy Kubernetes Cluster on different Cloud Service Providers!
 
@@ -37,6 +38,14 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 
 #### GPU
 - [nivida](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/nivida/README.md) 🔨
+
+
+
+
+#### ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) Worker Nodes  
+- [windows](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/windows/README.md)
+
+
 
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/)
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
