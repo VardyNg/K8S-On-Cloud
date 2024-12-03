@@ -43,7 +43,7 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 
 
 #### ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) Worker Nodes  
-- [windows](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/windows/README.md)
+- [windows](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/windows/README.md) ✅
 
 
 
