@@ -9,7 +9,7 @@ resource "aws_iam_policy" "lb_controller" {
 }
 
 resource "aws_iam_role" "lb_controller" {
-  name = "eks-lb-controller"
+  name = "${local.name}-eks-lb-controller"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
