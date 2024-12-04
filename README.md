@@ -40,12 +40,12 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - [nivida](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/nivida/README.md) 🔨
 
 
-
-
 #### ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) Worker Nodes  
 - [windows](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/windows/README.md) ✅
 
 
+#### Workload
+- [add-ons](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/add-ons/README.md) (Advanced Configurations)
 
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/)
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
