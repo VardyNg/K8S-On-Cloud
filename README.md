@@ -51,6 +51,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - [ECR Pull Through Cache](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/ecr-pull-through-cache/README.md) ✅
 
 
+#### EKS Auto Mode
+- [EKS Auto Mode](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/eks-auto-mode/README.md) ✅
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/) 🔨
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
 
