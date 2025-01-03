@@ -8,6 +8,10 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - 🔨: Work in progress
 ## Kubernetes-as-a-Service (KaaS)
 ### [Elastic Kubernetes Service (EKS)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/)
+
+#### Architecture
+- [From Scratch](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/from-scratch/README.md) ✅: Deploy EKS Cluster without using Terraform Module
+
 #### Authorization and authentication for Pods / Users
 - [IAM Roles for Service Accounts (IRSA)](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/irsa/README.md) ✅
 - [Pod Identity](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/pod-identity/README.md) ✅
