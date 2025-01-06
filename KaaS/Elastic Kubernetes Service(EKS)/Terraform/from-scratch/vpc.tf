@@ -10,6 +10,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "subnet_1" {
   vpc_id     = aws_vpc.main.id
   cidr_block = cidrsubnet(local.vpc_cidr, 8, 0)
+  availability_zone = "${local.region}a"
 
   tags = {
     Name = "${local.name}-subnet-1"
@@ -19,6 +20,7 @@ resource "aws_subnet" "subnet_1" {
 resource "aws_subnet" "subnet_2" {
   vpc_id     = aws_vpc.main.id
   cidr_block = cidrsubnet(local.vpc_cidr, 8, 1)
+  availability_zone = "${local.region}b"
 
   tags = {
     Name = "${local.name}-subnet-2"
