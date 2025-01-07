@@ -71,6 +71,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### Workload
 - [add-ons (Advanced Configurations)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/add-ons/README.md)   
   Use Advanced Configurations in EKS Add-On
+- [add-ons (Pod Identity)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/EKSCTL/Add-On-Pod-Identity/README.md) ✅  
+  Use Pod Identity in Add-ons instaed of IRSA
 
 ### Docker Images
 - [ECR Pull Through Cache](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/ecr-pull-through-cache/README.md) ✅  

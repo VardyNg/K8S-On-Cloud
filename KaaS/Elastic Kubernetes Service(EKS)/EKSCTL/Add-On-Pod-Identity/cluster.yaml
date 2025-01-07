@@ -1,0 +1,32 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eksctl-cluster
+  region: us-east-1
+
+nodeGroups:
+  - name: ng-2
+    instanceType: m5.large
+    desiredCapacity: 2
+
+addons:
+  - name: aws-ebs-csi-driver
+    version: latest
+  - name: vpc-cni
+    version: latest
+  - name: eks-pod-identity-agent
+    version: latest
+
+iam:
+  withOIDC: true
+  serviceAccounts:
+    - metadata:
+        name: efs-csi-controller-sa
+        namespace: kube-system
+      attachPolicyARNs:
+        - arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy
+      roleName: basic-eksctl-cluster-efs-csi-controller-sa-role
+
+addonsConfig:
+  autoApplyPodIdentityAssociations: true
