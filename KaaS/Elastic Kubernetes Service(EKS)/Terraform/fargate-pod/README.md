@@ -1,0 +1,1 @@
+### This demo the use of Fargate to run Pods in EKS, via Fargate Profile

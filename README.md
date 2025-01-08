@@ -46,7 +46,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Scale nodes based on pod requirements
 - [Cluster Autosclaer](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cluster-autoscaler/README.md) 🔨  
   Scale nodes based on pod requirements
-
+- [Fargate Pod](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fargate-pod/README.md) ✅  
+  Run pods on Fargate
 ### Logging
 - [CloudWatch Log: Fluent Bit](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cloudwatch-log-fluent-bit/README.md) 🔨  
   Emit logs to CloudWatch Log using Fluent Bit
