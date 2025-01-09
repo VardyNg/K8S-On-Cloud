@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 19.21"
+  version = "~> 20.31"
 
   cluster_name                   = local.name
   cluster_version                = var.eks_version
@@ -11,13 +11,33 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_groups = {
-    initial = {
+    default = {
       instance_types = ["m5.large"]
 
       amiType      = "AL2_x86_64"
       min_size     = 1
       max_size     = 5
-      desired_size = 2
+      desired_size = 1
+      iam_role_additional_policies = {
+        CloudWatchAgentServerPolicy: "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+      }
+    }
+  }
+
+  access_entries = {
+    # One access entry with a policy associated
+    admin = {
+      kubernetes_groups = []
+      principal_arn     = data.aws_caller_identity.current.arn
+
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type       = "cluster"
+          }
+        }
+      }
     }
   }
 
@@ -26,7 +46,6 @@ module "eks" {
       most_recent = true
     }
   }
-  manage_aws_auth_configmap = true
 
   tags = local.tags
 }
