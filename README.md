@@ -83,6 +83,9 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - [EKS Auto Mode](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/eks-auto-mode/README.md) ✅  
   Use EKS Auto Mode to manage node groups, pods, and services, and so on.
 
+### Cost Management
+- [Kubecost](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/kubecost/README.md) ✅  
+  Deploy Kubecost in EKS Cluster
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/) 🔨
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
 
