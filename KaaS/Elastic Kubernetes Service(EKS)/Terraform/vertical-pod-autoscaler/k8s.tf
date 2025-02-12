@@ -1,90 +1,78 @@
-# resource "kubernetes_deployment" "php_apache" {
-#   metadata {
-#     name = "php-apache"
-#   }
+resource "kubernetes_manifest" "hamster_vpa" {
+  manifest = {
+    apiVersion = "autoscaling.k8s.io/v1"
+    kind       = "VerticalPodAutoscaler"
+    metadata = {
+      name = "hamster-vpa"
+    }
+    spec = {
+      targetRef = {
+        apiVersion = "apps/v1"
+        kind       = "Deployment"
+        name       = "hamster"
+      }
+      resourcePolicy = {
+        containerPolicies = [
+          {
+            containerName      = "*"
+            minAllowed = {
+              cpu    = "100m"
+              memory = "50Mi"
+            }
+            maxAllowed = {
+              cpu    = "1"
+              memory = "500Mi"
+            }
+            controlledResources = ["cpu", "memory"]
+          }
+        ]
+      }
+    }
+  }
+}
 
-#   spec {
-#     selector {
-#       match_labels = {
-#         run = "php-apache"
-#       }
-#     }
+resource "kubernetes_deployment" "hamster" {
+  metadata {
+    name = "hamster"
+  }
 
-#     template {
-#       metadata {
-#         labels = {
-#           run = "php-apache"
-#         }
-#       }
+  spec {
+    replicas = 2
 
-#       spec {
-#         container {
-#           name  = "php-apache"
-#           image = "registry.k8s.io/hpa-example"
+    selector {
+      match_labels = {
+        app = "hamster"
+      }
+    }
 
-#           port {
-#             container_port = 80
-#           }
+    template {
+      metadata {
+        labels = {
+          app = "hamster"
+        }
+      }
 
-#           resources {
-#             limits = {
-#               cpu = "500m"
-#             }
-#             requests = {
-#               cpu = "200m"
-#             }
-#           }
-#         }
-#       }
-#     }
-#   }
-# }
+      spec {
+        security_context {
+          run_as_non_root = true
+          run_as_user     = 65534
+        }
 
-# resource "kubernetes_service" "php_apache" {
-#   metadata {
-#     name = "php-apache"
-#     labels = {
-#       run = "php-apache"
-#     }
-#   }
+        container {
+          name  = "hamster"
+          image = "registry.k8s.io/ubuntu-slim:0.14"
 
-#   spec {
-#     port {
-#       port = 80
-#     }
+          resources {
+            requests = {
+              cpu    = "100m"
+              memory = "50Mi"
+            }
+          }
 
-#     selector = {
-#       run = "php-apache"
-#     }
-#   }
-# }
-
-
-# resource "kubernetes_horizontal_pod_autoscaler_v2" "php_apache" {
-#   metadata {
-#     name = "php-apache"
-#   }
-
-#   spec {
-#     scale_target_ref {
-#       api_version = "apps/v1"
-#       kind        = "Deployment"
-#       name        = "php-apache"
-#     }
-
-#     min_replicas = 1
-#     max_replicas = 10
-
-#     metric {
-#       type = "Resource"
-
-#       resource {
-#         name = "cpu"
-#         target {
-#           type               = "Utilization"
-#           average_utilization = 50
-#         }
-#       }
-#     }
-#   }
-# }
+          command = ["/bin/sh"]
+          args    = ["-c", "while true; do timeout 0.5s yes >/dev/null; sleep 0.5s; done"]
+        }
+      }
+    }
+  }
+}
