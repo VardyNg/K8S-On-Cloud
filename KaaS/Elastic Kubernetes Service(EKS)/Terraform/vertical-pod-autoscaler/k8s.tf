@@ -41,6 +41,7 @@ resource "kubernetes_manifest" "hamster_vpa" {
 resource "kubernetes_deployment" "hamster" {
   metadata {
     name = "hamster"
+    namespace  = kubernetes_namespace_v1.ns.metadata.0.name
   }
 
   spec {
