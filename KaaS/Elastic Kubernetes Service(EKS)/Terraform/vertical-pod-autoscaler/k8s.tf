@@ -1,9 +1,16 @@
+resource "kubernetes_namespace_v1" "ns" {
+  metadata {
+    name = "${local.name}-namespace"
+  }
+}
+
 resource "kubernetes_manifest" "hamster_vpa" {
   manifest = {
     apiVersion = "autoscaling.k8s.io/v1"
     kind       = "VerticalPodAutoscaler"
     metadata = {
       name = "hamster-vpa"
+      namespace = kubernetes_namespace_v1.ns.metadata.0.name
     }
     spec = {
       targetRef = {
