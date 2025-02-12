@@ -1,0 +1,6 @@
+[submodule "vpa"]
+  path = ./KaaS/Elastic Kubernetes Service(EKS)/Terraform/vertical-pod-autoscaler/vpa
+  url = https://github.com/kubernetes/autoscaler.git
+[submodule "KaaS/Elastic Kubernetes Service(EKS)/Terraform/vertical-pod-autoscaler/vpa"]
+	path = KaaS/Elastic Kubernetes Service(EKS)/Terraform/vertical-pod-autoscaler/vpa
+	url = https://github.com/kubernetes/autoscaler/

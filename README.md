@@ -42,6 +42,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Scale pods based on the number of nodes
 - [Horizontal Pod Autoscaler (HPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/horizontal-pod-autoscaler/README.md) ✅  
   Scale deployment based on CPU and Memory usage  
+- [Vertical Pod Autoscaler (VPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/vertical-pod-autoscaler/README.md) 🔨
+  
 - [Karpenter](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/karpenter/README.md) ✅  
   Scale nodes based on pod requirements
 - [Cluster Autosclaer](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cluster-autoscaler/README.md) 🔨  
