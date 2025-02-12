@@ -38,8 +38,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Mount S3 Bucket to Pod
 
 ### Pod & Node Autoscaling
-- [Cluster Proportional Autoscaler (CPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cpa/README.md)  
-  Scale pods based on the number of nodes
+- [Cluster Proportional Autoscaler (CPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cpa/README.md)  ✅  
+  Scale pods based on the number of nodes/cores in cluster
 - [Horizontal Pod Autoscaler (HPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/horizontal-pod-autoscaler/README.md) ✅  
   Scale deployment based on CPU and Memory usage, by adjusting the replicas in Deployment/ReplicaSet/StatefulSet...
 - [Vertical Pod Autoscaler (VPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/vertical-pod-autoscaler/README.md) ✅  
