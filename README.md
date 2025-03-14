@@ -90,6 +90,11 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### Cost Management
 - [Kubecost](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/kubecost/README.md) ✅  
   Deploy Kubecost in EKS Cluster
+
+### AWS Integration
+- [AWS Batch](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/aws-batch/README.md) ✅  
+  Use EKS to run AWS Batch Jobs
+
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/) 🔨
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
 
