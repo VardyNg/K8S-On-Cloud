@@ -2,10 +2,10 @@ variable "region" {
   type = string
 }
 
-variable "ingress-host" { 
-  description = "value of the host field in the ingress resource"
+variable "ingress-domain" { 
+  description = "ingress domain name"
   type = string
-  default = "test.example.com"
+  default = "example.com"
 }
 
 variable "eks_version" {

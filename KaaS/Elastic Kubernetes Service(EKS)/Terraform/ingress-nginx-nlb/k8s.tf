@@ -43,10 +43,6 @@ resource "kubernetes_deployment" "nginx" {
 resource "kubernetes_service_v1" "nginx" {
   metadata {
     name = "nginx-service"
-
-    annotations = {
-      "kubernetes.io/ingress.class": "prod-public-ingress"
-    }
   }
   
   spec {
@@ -60,7 +56,7 @@ resource "kubernetes_service_v1" "nginx" {
       target_port = 80
     }
 
-    type = "LoadBalancer"
+    type = "ClusterIP"
   }
 }
 
@@ -69,13 +65,13 @@ resource "kubernetes_ingress_v1" "nginx" {
     name = "nginx-ingress"
 
     annotations = {
-      "kubernetes.io/ingress.class": "prod-public-ingress"
+      "kubernetes.io/ingress.class": "ingress-nginx-ingress-class"
     }
   }
 
   spec {
     rule {
-      host = var.ingress-host
+      host = "test.${var.ingress-domain}"
       http {
         path {
           path = "/"
