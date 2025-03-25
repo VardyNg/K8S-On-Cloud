@@ -9,12 +9,12 @@ controller:
   ingressClassByName: true
 
   ingressClassResource:
-    name: prod-public-ingress
+    name: ingress-nginx-ingress-class
     enabled: true
     default: false
     controllerValue: "k8s.io/ingress-nginx-public"
 
-  ingressClass: prod-public-ingress
+  ingressClass: ingress-nginx-ingress-class
 
   service: 
     annotations:
