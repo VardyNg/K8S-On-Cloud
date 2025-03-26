@@ -17,11 +17,13 @@ Reference: https://aws.amazon.com/blogs/opensource/network-load-balancer-nginx-i
 - A Private Hosted zone for testing the Ingress
 
 ## How to test
-As the NLB URL is dynamic, please manually create a CNAME record in the Private Hosted Zone, setting `test` to the NLB URL. By default, the dommain is `example.com`, therefore, point `test.example.com` to the NLB URL.
+As the NLB URL is not static, please manually update the A Record in the Private Hosted Zone with the NLB URL, to point `nginx.example.com` and `apache.example.com` to the NLB URL.
 
-Then, in the Cluster VPC, create a bastion host or utilize one of the worker nodes, and try to curl the `test.example.com` domain (assume you're using the default value).
+Then, inside the VPC (or just use one of the worker node), curl the URL to test the Ingress.
+
 ```bash
-curl test.example.com
+curl nginx.example.com
+curl apache.example.com
 ```
 
-you should get a response from the nginx web server.
+You should get the default nginx page and apache page respectively. We are using ONE NLB, ONE Ingress Controller, and TWO Ingresses to route the traffic to different services!

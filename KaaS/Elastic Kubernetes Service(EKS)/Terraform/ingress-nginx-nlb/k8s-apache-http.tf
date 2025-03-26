@@ -1,14 +1,14 @@
-resource "kubernetes_namespace" "sample-app" {
+resource "kubernetes_namespace" "sample-app-apache" {
   metadata {
-    name = "sample-app"
+    name = "sample-app-apache"
   }
 }
 
-resource "kubernetes_deployment" "nginx" {
+resource "kubernetes_deployment" "apache" {
   metadata {
-    name = "nginx-deployment"
+    name = "apache-deployment"
     labels = {
-      app = "nginx"
+      app = "apache"
     }
   }
 
@@ -16,21 +16,21 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 5
     selector {
       match_labels = {
-        app = "nginx"
+        app = "apache"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "nginx"
+          app = "apache"
         }
       }
 
       spec {
         container {
-          image = "nginx:latest"
-          name  = "nginx"
+          image = "httpd:latest"
+          name  = "apache"
           port {
             container_port = 80
           }
@@ -40,17 +40,16 @@ resource "kubernetes_deployment" "nginx" {
   }
 }
 
-resource "kubernetes_service_v1" "nginx" {
+resource "kubernetes_service_v1" "apache" {
   metadata {
-    name = "nginx-service"
+    name = "apache-service"
   }
   
   spec {
     selector = {
-      app = "nginx"
+      app = "apache"
     }
 
-    
     port {
       port        = 80
       target_port = 80
@@ -60,9 +59,9 @@ resource "kubernetes_service_v1" "nginx" {
   }
 }
 
-resource "kubernetes_ingress_v1" "nginx" {
+resource "kubernetes_ingress_v1" "apache" {
   metadata {
-    name = "nginx-ingress"
+    name = "apache-ingress"
 
     annotations = {
       "kubernetes.io/ingress.class": "ingress-nginx-ingress-class"
@@ -71,14 +70,14 @@ resource "kubernetes_ingress_v1" "nginx" {
 
   spec {
     rule {
-      host = "test.${var.ingress-domain}"
+      host = "apache.${var.ingress-domain}"
       http {
         path {
           path = "/"
           path_type = "Prefix"
           backend {
             service {
-              name = "nginx-service"
+              name = "apache-service"
               port {
                 number = 80
               }
@@ -86,7 +85,6 @@ resource "kubernetes_ingress_v1" "nginx" {
           }
         }
       }
-
     }
   }
 }
