@@ -94,7 +94,9 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### AWS Integration
 - [AWS Batch](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/aws-batch/README.md) ✅  
   Use EKS to run AWS Batch Jobs
-
+- [AWS CodeBuild](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/codebuild-interactions/README.md) ✅  
+  Execute kubectl commands in EKS Cluster using AWS CodeBuild
+  
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/) 🔨
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
 
