@@ -23,11 +23,13 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 
 ### Load Balancer and Service 
 - [Load Balancer Controller](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/load-balancer/README.md) ✅  
-  Create ALB via Ingress and NLB via Service using Load Balancer Controller (LBC)
+  Create ALB via Ingress, NLB via Service, and use TargetGroupBinding with Load Balancer Controller (LBC)
 - [Cloud Controller Manager](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/cloud-controller-manager/README.md) ✅  
   Create CLB via LoadBalancer type Service using Cloud Controller Manager (CCM)
 - [Ingress Nginx + NLB](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/ingress-nginx-nlb/README.md) ✅  
   Use Ingress Controller (ingress-ngix) with NLB
+- [NGINX Ingress + NLB](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/nginx-ingress-nlb/README.md) ✅  
+  Use Ingress Controller (NGINX Ingress) with NLB
 
 ### Presistent Storage
 - [Pod mount EFS Volume](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/pod-mount-efs-volume/README.md) ✅  

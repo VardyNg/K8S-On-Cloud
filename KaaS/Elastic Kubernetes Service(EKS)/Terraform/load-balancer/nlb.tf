@@ -1,7 +1,8 @@
-resource "kubernetes_service_v1" "nlb-1" {
+resource "kubernetes_service_v1" "nlb-by-service" {
   metadata {
-    name = "nlb-service-1"
+    name = "nlb-by-service"
     annotations = {
+      "service.beta.kubernetes.io/aws-load-balancer-name": "${local.name}-by-service"
       "service.beta.kubernetes.io/aws-load-balancer-type": "external"
       "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type": "ip"
       "service.beta.kubernetes.io/aws-load-balancer-listener-attributes.TCP-80": "tcp.idle_timeout.seconds=600"

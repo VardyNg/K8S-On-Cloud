@@ -1,15 +1,16 @@
-resource "kubernetes_ingress_v1" "nginx-1" {
+resource "kubernetes_ingress_v1" "alb-ingress-group-member-1" {
   metadata {
-    name = "alb-ingress-1"
+    name = "alb-ingress-group-member-1"
     annotations = {
+      "alb.ingress.kubernetes.io/load-balancer-name": "${local.name}-with-group"
+
       "alb.ingress.kubernetes.io/scheme": "internet-facing"
       "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
       "alb.ingress.kubernetes.io/healthcheck-port": 80
-      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}, {"HTTPS": 443}])
+      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}])
       "alb.ingress.kubernetes.io/target-type": "ip"
       "alb.ingress.kubernetes.io/group.name" = "sample-ingress-group"
       "alb.ingress.kubernetes.io/group.order" = 1
-      "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
     }
   }
 
@@ -33,17 +34,16 @@ resource "kubernetes_ingress_v1" "nginx-1" {
   }
 }
 
-resource "kubernetes_ingress_v1" "nginx-2" {
+resource "kubernetes_ingress_v1" "alb-ingress-group-member-2" {
   metadata {
-    name = "alb-ingress-2"
+    name = "alb-ingress-group-member-2"
     annotations = {
       "alb.ingress.kubernetes.io/healthcheck-protocol": "HTTP"
       "alb.ingress.kubernetes.io/healthcheck-port": 80
-      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}, {"HTTPS": 443}])
+      "alb.ingress.kubernetes.io/listen-ports": jsonencode([{"HTTP": 80}])
       "alb.ingress.kubernetes.io/target-type": "ip"
       "alb.ingress.kubernetes.io/group.name" = "sample-ingress-group"
       "alb.ingress.kubernetes.io/group.order" = 2
-      "alb.ingress.kubernetes.io/inbound-cidrs" = "10.0.0.0/24"
     }
   }
 
