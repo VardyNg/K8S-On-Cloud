@@ -100,6 +100,15 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Execute kubectl commands in EKS Cluster using AWS CodeBuild
 - [AWS Resilience Hub](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fault-injection-simulator/README.md) ✅  
   Use AWS Resilience Hub - Fault Injection Service in EKS Cluster
+
+### Tools to deploy EKS
+- [AWS CDK](/KaaS/Elastic%20Kubernetes%20Service(EKS)/CDK/simple/README.md) ✅  
+  Use AWS CDK to deploy a simple EKS Cluster
+- [AWS CloudFormation](/KaaS/Elastic%20Kubernetes%20Service(EKS)/CloudFormation/README.md) ✅  
+  Use AWS CloudFormation to deploy a simple EKS Cluster
+- [EKSCTL](/KaaS/Elastic%20Kubernetes%20Service(EKS)/EKSCTL/Add-On-Pod-Identity/README.md) ✅  
+  Use EKSCTL to configure an EKS cluster, with Add-on Pod Identity
+
 ### [Azure Kubernetes Cluster (AKS)](/KaaS/Azure%20Kubernetes%20Service(AKS)/) 🔨
 - [Terraform](/KaaS/Azure%20Kubernetes%20Service(AKS)/Terraform/README.md)
 
