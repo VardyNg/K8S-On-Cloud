@@ -76,7 +76,7 @@ resource "kubernetes_deployment_v1" "default" {
 
       spec {
         container {
-          image = "centos"
+          image = "centos:8"
           name  = "app"
           command = ["/bin/sh"]
           args = ["-c", "echo 'Hello from the container!' >> /data/$(date -u).txt; tail -f /dev/null"]
