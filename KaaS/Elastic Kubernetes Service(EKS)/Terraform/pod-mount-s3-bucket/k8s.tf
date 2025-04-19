@@ -32,24 +32,20 @@ resource "kubernetes_persistent_volume" "default" {
   }
 }
 
-resource "kubernetes_manifest" "pvc" {
-  manifest = {
-    apiVersion = "v1"
-    kind       = "PersistentVolumeClaim"
-    metadata = {
-      name      = "${local.name}-pvc"
-      namespace = "${kubernetes_namespace_v1.ns.metadata.0.name}"
-    }
-    spec = {
-      accessModes = ["ReadWriteMany"]
-      storageClassName = ""
-      resources = {
-        requests = {
-          storage = "3Gi"
-        }
+resource "kubernetes_persistent_volume_claim_v1" "pvc" {
+  metadata {
+    name      = "${local.name}-pvc"
+    namespace = kubernetes_namespace_v1.ns.metadata.0.name
+  }
+  spec {
+    access_modes = ["ReadWriteMany"]
+    storage_class_name = ""
+    resources {
+      requests = {
+        storage = "3Gi"
       }
-      volumeName = "${kubernetes_persistent_volume.default.metadata.0.name}"
     }
+    volume_name = kubernetes_persistent_volume.default.metadata.0.name
   }
 }
 
