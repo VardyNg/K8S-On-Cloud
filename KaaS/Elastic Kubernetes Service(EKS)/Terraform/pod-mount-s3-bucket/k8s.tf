@@ -90,7 +90,7 @@ resource "kubernetes_deployment_v1" "default" {
         volume {
           name = "persistent-storage"
           persistent_volume_claim {
-            claim_name = kubernetes_manifest.pvc.manifest.metadata.name
+            claim_name = kubernetes_persistent_volume_claim_v1.pvc.metadata.0.name
           }
         }
       }
