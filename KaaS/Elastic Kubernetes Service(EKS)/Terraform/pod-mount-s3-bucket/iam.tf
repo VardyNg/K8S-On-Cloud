@@ -24,11 +24,6 @@ resource "aws_iam_role_policy_attachment" "ebs_controller_attachement" {
   policy_arn = aws_iam_policy.policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "ebs_controller_attachement" {
-  role       = aws_iam_role.s3_role.name
-  policy_arn = aws_iam_policy.policy.arn
-}
-
 resource "aws_iam_policy" "policy" {
   name = "${local.name}-policy"
 
