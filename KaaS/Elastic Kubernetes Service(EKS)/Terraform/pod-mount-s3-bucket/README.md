@@ -2,7 +2,7 @@
 
 ### Content
 - VPC, Subnet, Security Group ... for the EKS cluster
-- an EKS cluster (v1.29) and a Managed Node Group
+- an EKS cluster and a Managed Node Group
 - IAM Role for ebs driver (`aws_iam_role.ebs_role`)
 - Kubernetes namespace, storage class, presistent volume, and sample pod (see [k8s.tf](k8s.tf))
 

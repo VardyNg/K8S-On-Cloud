@@ -25,15 +25,34 @@ resource "aws_iam_role_policy_attachment" "ebs_controller_attachement" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "${local.name}-policy"
+  name = "${local.name}-policy"
 
-  policy = data.template_file.s3_policy.rendered
-}
-
-data "template_file" "s3_policy" {
-  template = file("${path.module}/s3-iam-policy.tftpl")
-
-  vars = {
-    bucket_name = aws_s3_bucket.default.id
-  }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "MountpointFullBucketAccess"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "arn:aws:s3:::${aws_s3_bucket.default.id}"
+        ]
+      },
+      {
+        Sid    = "MountpointFullObjectAccess"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:AbortMultipartUpload",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::${aws_s3_bucket.default.id}/*"
+        ]
+      }
+    ]
+  })
 }
