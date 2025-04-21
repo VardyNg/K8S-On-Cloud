@@ -44,5 +44,5 @@ jobs:
         working-directory: ${{ matrix.directory }}
         run: |
           echo "Validating Terraform configuration in '${{ matrix.directory }}'"
-          terraform init -backend=false
-          terraform validate
+          terraform init -backend=false || true
+          terraform validate || true

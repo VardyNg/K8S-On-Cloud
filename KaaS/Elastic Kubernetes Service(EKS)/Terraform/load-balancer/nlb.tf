@@ -22,4 +22,5 @@ resource "kubernetes_service_v1" "nlb-by-service" {
 
     type = "LoadBalancer"
   }
+
 }

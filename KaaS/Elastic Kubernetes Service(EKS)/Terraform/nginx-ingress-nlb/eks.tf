@@ -10,16 +10,17 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
-  # eks_managed_node_groups = {
-  #   initial = {
-  #     instance_types = ["m5.large"]
+  eks_managed_node_groups = {
+    test = {
+      instance_types = ["m5.large"]
 
-  #     amiType      = "AL2_x86_64"
-  #     min_size     = 1
-  #     max_size     = 5
-  #     desired_size = 2
-  #   }
-  # }
+      amiType      = "AL2_x86_64"
+      min_size     = 1
+      max_size     = 5
+      desired_size = 3
+    }
+
+  }
 
   access_entries = {
     # One access entry with a policy associated
@@ -41,6 +42,20 @@ module "eks" {
   tags = local.tags
 }
 
-data "aws_ssm_parameter" "windows_ami" {
-  name = "/aws/service/eks/optimized-ami/1.29/amazon-linux-2023/x86_64/standard/recommended/image_id"
+# IAM Role for EKS worker nodes
+resource "aws_iam_role" "eks_worker_role" {
+  name = "${local.name}-eks-worker-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }

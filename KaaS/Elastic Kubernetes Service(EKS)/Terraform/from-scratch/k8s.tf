@@ -36,3 +36,4 @@ resource "kubernetes_deployment_v1" "autoscaling_test" {
     }
   }
 }
+
