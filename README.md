@@ -38,6 +38,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Mount EBS Volume to Pod
 - [Pod mount S3 Bucket](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/pod-mount-s3-bucket/README.md) ✅  
   Mount S3 Bucket to Pod
+- [Logical Volume Manager (LVM)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/csi-driver-lvm/README.md) ✅  
+  Use LVM to create a volume and mount it to Pod
 
 ### Pod & Node Autoscaling
 - [Cluster Proportional Autoscaler (CPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cpa/README.md)  ✅  
