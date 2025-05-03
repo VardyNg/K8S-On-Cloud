@@ -68,7 +68,7 @@ resource "kubernetes_deployment_v1" "default" {
 
       spec {
         container {
-          image = "centos"
+          image = "centos:8"
           name  = "app"
           command = ["/bin/sh"]
           args = ["-c", "while true; do echo $(date -u) >> /data/out; sleep 5; done"]
