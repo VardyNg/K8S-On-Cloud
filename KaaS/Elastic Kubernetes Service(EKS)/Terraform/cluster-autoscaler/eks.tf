@@ -14,7 +14,6 @@ module "eks" {
   eks_managed_node_groups = {
     initial = {
       instance_types = ["m5.large"]
-      name         = "${local.name}-mng"
       amiType      = "AL2_x86_64"
       min_size     = 1
       max_size     = 5
