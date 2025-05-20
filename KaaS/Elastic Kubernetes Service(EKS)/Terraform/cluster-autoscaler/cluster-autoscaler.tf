@@ -40,7 +40,13 @@ resource "kubernetes_deployment" "cluster_autoscaler" {
             "--balance-similar-node-groups",
             "--skip-nodes-with-system-pods=false",
             "--aws-use-static-instance-list",
+
+						// Auto discovery
+						"--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/${module.eks.cluster_name}",
+
+						// Specify the node group name for the cluster autoscaler
             "--nodes=1:10:${module.eks.eks_managed_node_groups.initial.node_group_autoscaling_group_names[0]}",
+
             "--balance-similar-node-groups",
             "--skip-nodes-with-system-pods=false",
             "--aws-use-static-instance-list",
