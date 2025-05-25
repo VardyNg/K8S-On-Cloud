@@ -24,13 +24,13 @@ resource "kubernetes_namespace_v1" "arc_runners" {
 
 # Install ARC controller using Helm
 resource "helm_release" "arc_controller" {
-  name       = "arc"
-  namespace  = kubernetes_namespace_v1.arc_systems.metadata.0.name
+  name             = "arc"
+  namespace        = kubernetes_namespace_v1.arc_systems.metadata.0.name
   create_namespace = true
 
   repository = "oci://ghcr.io/actions/actions-runner-controller-charts"
   chart      = "gha-runner-scale-set-controller"
-  version    = "0.8.2"  # Specify the version you want to use
+  version    = "0.8.2" # Specify the version you want to use
 
   # Set node affinity to run on controller nodes
   set {

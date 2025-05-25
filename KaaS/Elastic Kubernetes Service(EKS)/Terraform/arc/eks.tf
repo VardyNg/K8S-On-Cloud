@@ -2,9 +2,9 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name                   = local.name
-  cluster_version                = var.eks_version
-  cluster_endpoint_public_access = true
+  cluster_name                    = local.name
+  cluster_version                 = var.eks_version
+  cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
   vpc_id     = module.vpc.vpc_id
@@ -25,7 +25,7 @@ module "eks" {
         admin = {
           policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
-            type       = "cluster"
+            type = "cluster"
           }
         }
       }
@@ -39,7 +39,7 @@ module "eks" {
         karpenter = {
           policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
-            type       = "cluster"
+            type = "cluster"
           }
         }
       }

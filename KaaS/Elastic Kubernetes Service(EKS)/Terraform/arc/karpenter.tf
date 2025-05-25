@@ -9,8 +9,8 @@ resource "kubernetes_namespace_v1" "karpenter" {
 }
 
 resource "helm_release" "karpenter" {
-  name       = "karpenter"
-  namespace  = kubernetes_namespace_v1.karpenter.metadata.0.name
+  name             = "karpenter"
+  namespace        = kubernetes_namespace_v1.karpenter.metadata.0.name
   create_namespace = true
 
   repository = "oci://public.ecr.aws/karpenter"

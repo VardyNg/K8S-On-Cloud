@@ -2,7 +2,7 @@
 resource "aws_launch_template" "eks_controller_lt" {
   name_prefix   = "${local.name}-controller-lt"
   image_id      = data.aws_ssm_parameter.eks_al2023_ami.value
-  instance_type = "t3.medium"  # Using t3.medium as minimum size for running Karpenter and ARC
+  instance_type = "t3.medium" # Using t3.medium as minimum size for running Karpenter and ARC
 
   user_data = base64encode(<<-EOF
 Content-Type: multipart/mixed; boundary="BOUNDARY"
@@ -38,15 +38,15 @@ spec:
 
   # Enable detailed instance monitoring
   instance_market_options {
-    market_type = "spot"  # Use spot instances for cost savings
+    market_type = "spot" # Use spot instances for cost savings
   }
 
   tag_specifications {
     resource_type = "instance"
-    
+
     tags = merge(
       {
-        "Name" = "${local.name}-controller-node"
+        "Name"                   = "${local.name}-controller-node"
         "karpenter.sh/discovery" = local.name
       },
       local.tags
