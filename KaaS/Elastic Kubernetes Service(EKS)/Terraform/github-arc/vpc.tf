@@ -13,11 +13,9 @@ module "vpc" {
   single_nat_gateway = true
 
 	// Allow Kaprenter to discover the private subnets
-  public_subnet_tags = {
+  private_subnet_tags = {
     "karpenter.sh/discovery" = local.name
   }
-
-	map_public_ip_on_launch = true
 
   tags = var.tags
 }
