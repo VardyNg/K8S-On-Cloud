@@ -48,27 +48,6 @@ module "eks" {
   })
 
 	cluster_addons = {
-    aws-efs-csi-driver ={
-      most_recent = true
-      service_account_role_arn = aws_iam_role.efs_role.arn
-
-			configuration_values = jsonencode({
-				controller: {
-					nodeSelector: {
-						controller-node = "true"
-					}
-					tolerations: [
-						{
-							key:      "controller-node"
-							operator: "Equal"
-							value:    "true"
-							effect:   "NoSchedule"
-						}
-					]
-					replicaCount: 1
-				}
-			})
-    }
 		coredns = {
 			most_recent = true
 

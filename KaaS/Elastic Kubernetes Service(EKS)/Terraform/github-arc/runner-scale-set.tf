@@ -32,7 +32,7 @@ githubConfigUrl: "${var.github_config_url}"
 
 githubConfigSecret: "${kubernetes_secret_v1.pre_defined.metadata[0].name}"
 
-maxRunners: 30
+maxRunners: 5
 
 minRunners: 1
 
@@ -98,8 +98,7 @@ template:
           mountPath: /home/runner/externals
     volumes:
     - name: work
-      persistentVolumeClaim:
-        claimName: ${kubernetes_persistent_volume_claim_v1.default.metadata[0].name}
+      emptyDir: {}
     - name: dind-sock
       emptyDir: {}
     - name: dind-externals
