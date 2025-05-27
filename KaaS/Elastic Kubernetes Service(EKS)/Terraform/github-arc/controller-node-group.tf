@@ -22,4 +22,6 @@ resource "aws_eks_node_group" "controller-node-group-2" {
 		value  = "true"
 		effect = "NO_SCHEDULE"
 	}
+
+	tags = var.tags
 }

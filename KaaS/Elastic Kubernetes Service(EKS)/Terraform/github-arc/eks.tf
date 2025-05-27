@@ -83,7 +83,7 @@ module "eks" {
 		}
   }
 
-  tags = local.tags
+  tags = var.tags
 }
 
 # Get the latest Amazon Linux 2023 AMI for EKS
