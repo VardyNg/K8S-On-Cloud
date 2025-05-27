@@ -12,9 +12,6 @@ module "eks" {
 
   enable_irsa = true
 
-  # We won't create managed node groups through this module as we'll create them separately
-  eks_managed_node_groups = {}
-
   access_entries = {
     # Admin access entry
     admin = {
@@ -50,6 +47,63 @@ module "eks" {
     "karpenter.sh/discovery" = local.name
   })
 
+	cluster_addons = {
+    aws-efs-csi-driver ={
+      most_recent = true
+      service_account_role_arn = aws_iam_role.efs_role.arn
+
+			configuration_values = jsonencode({
+				controller: {
+					nodeSelector: {
+						controller-node = "true"
+					}
+					tolerations: [
+						{
+							key:      "controller-node"
+							operator: "Equal"
+							value:    "true"
+							effect:   "NoSchedule"
+						}
+					]
+					replicaCount: 1
+				}
+			})
+    }
+		coredns = {
+			most_recent = true
+
+			configuration_values = jsonencode({
+				nodeSelector: {
+					controller-node = "true"
+				}
+				tolerations: [
+					{
+						key:      "controller-node"
+						operator: "Equal"
+						value:    "true"
+						effect:   "NoSchedule"
+					}
+				]
+				resources: {
+					limits: {
+						cpu: "2"
+					}
+					requests: {
+						cpu: "0.5"
+					}
+				}
+				autoScaling: {
+					enabled: true,
+					minReplicas: 2,
+					maxReplicas: 10
+				}
+			})
+		}
+		metrics-server = {
+			most_recent = true
+		}
+  }
+
   tags = local.tags
 }
 
@@ -57,3 +111,4 @@ module "eks" {
 data "aws_ssm_parameter" "eks_al2023_ami" {
   name = "/aws/service/eks/optimized-ami/${var.eks_version}/amazon-linux-2023/x86_64/standard/recommended/image_id"
 }
+
