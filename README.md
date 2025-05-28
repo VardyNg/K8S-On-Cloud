@@ -59,7 +59,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### Logging
 - [CloudWatch Log: Fluent Bit](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cloudwatch-log-fluent-bit/README.md) 🔨  
   Emit logs to CloudWatch Log using Fluent Bit
-
+- [Amazon Distro for OpenTelemetry (ADOT)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/adot/README.md) ✅  
+	Use ADOT to collect logs and metrics from EKS Cluster
 ### Node Configuration & Networking
 - [Managed Node Group - Custom Launch Template](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/mng-custom-lt/README.md) ✅
   Supply custom launch template to Managed Node Group  
