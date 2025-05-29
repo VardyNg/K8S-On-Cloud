@@ -7,3 +7,4 @@ resource "kubernetes_service_account" "adot_collector" {
 		}
 	}
 }
+
