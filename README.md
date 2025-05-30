@@ -103,6 +103,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Execute kubectl commands in EKS Cluster using AWS CodeBuild
 - [AWS Resilience Hub](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fault-injection-simulator/README.md) ✅  
   Use AWS Resilience Hub - Fault Injection Service in EKS Cluster
+- [Model Context Protocol (MCP)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/model-context-protocol/README.md) ✅  
+  Use EKS Model Context Protocol Server for AI interactions with Kubernetes
 
 ### Tools to deploy EKS
 - [AWS CDK](/KaaS/Elastic%20Kubernetes%20Service(EKS)/CDK/simple/README.md) ✅  
