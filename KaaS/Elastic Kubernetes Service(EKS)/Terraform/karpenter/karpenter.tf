@@ -48,7 +48,7 @@ resource "helm_release" "karpenter" {
 }
 
 data "aws_ssm_parameter" "eks_al2023_ami" {
-  name = "/aws/service/eks/optimized-ami/1.29/amazon-linux-2023/x86_64/standard/recommended/image_id"
+  name = "/aws/service/eks/optimized-ami/${var.eks_version}/amazon-linux-2023/x86_64/standard/recommended/image_id"
 }
 
 # resource "kubernetes_manifest" "karpenter_ec2nodeclass" {
