@@ -62,10 +62,10 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - [Amazon Distro for OpenTelemetry (ADOT)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/adot/README.md) ✅  
 	Use ADOT to collect logs and metrics from EKS Cluster
 ### Node Configuration & Networking
-- [Managed Node Group - Custom Launch Template](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/mng-custom-lt/README.md) ✅
+- [Managed Node Group - Custom Launch Template](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/mng-custom-lt/README.md) ✅  
   Supply custom launch template to Managed Node Group  
-- [Cluster Multi-CIDR](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/multi-cidr/README.md) ✅  
-  Use multiple CIDR blocks for the EKS cluster
+- [VPC Secondary CIDR](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/vpc-secondary-cidr/README.md) ✅  
+  Configure EKS cluster to also use the secondary CIDR block of the VPC
 - [Fully Private Cluster](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fully-private-cluster/README.md) ✅  
   Create a fully private EKS cluster
 

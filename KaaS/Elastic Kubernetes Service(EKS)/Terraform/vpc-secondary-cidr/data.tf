@@ -4,11 +4,13 @@ data "aws_availability_zones" "available" {}
 data "aws_eks_cluster_auth" "this" {
   name = module.eks.cluster_name
 }
+
 locals {
   name   = basename(path.cwd)
   region = var.region
 
   vpc_cidr = "10.0.0.0/16"
+	secondary_cidr_blocks = "10.2.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
