@@ -80,6 +80,20 @@ module "eks" {
 		}
 		metrics-server = {
 			most_recent = true
+
+			configuration_values = jsonencode({
+				nodeSelector: {
+					controller-node = "true"
+				}
+				tolerations: [
+					{
+						key:      "controller-node"
+						operator: "Equal"
+						value:    "true"
+						effect:   "NoSchedule"
+					}
+				]
+			})
 		}
   }
 
