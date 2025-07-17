@@ -86,6 +86,10 @@ echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
       EOT
 		}
 	})
+
+	depends_on = [ 
+		helm_release.karpenter,
+	 ]
 }
 
 resource "kubectl_manifest" "karpenter_nodepool_runner" {
@@ -106,11 +110,14 @@ spec:
           values: [linux]
         - key: karpenter.sh/capacity-type
           operator: In
-          values: [on-demand]
+          values: [spot]
         - key: node.kubernetes.io/instance-type
           operator: In
           values: [
-            c5.2xlarge
+            "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge",
+            "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge",
+            "c5a.large", "c5a.xlarge", "c5a.2xlarge", "c5a.4xlarge",
+            "c5n.large", "c5n.xlarge", "c5n.2xlarge", "c5n.4xlarge"
           ]
       nodeClassRef:
         group: karpenter.k8s.aws
@@ -123,4 +130,9 @@ spec:
     consolidationPolicy: WhenEmptyOrUnderutilized
     consolidateAfter: 15s
 EOT
+
+	depends_on = [
+		helm_release.karpenter,
+		kubectl_manifest.karpenter_ec2nodeclass_runner
+	]
 }
