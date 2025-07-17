@@ -34,6 +34,19 @@ module "eks" {
     }
   }
 
+  # Additional security group rules for worker nodes
+  node_security_group_additional_rules = {
+    # Allow port 10251 traffic from the cluster security group (metric server)
+    ingress_10251_self = {
+      description                   = "Allow metric server access from cluster security group"
+      protocol                     = "tcp"
+      from_port                    = 10251
+      to_port                      = 10251
+      type                         = "ingress"
+      source_cluster_security_group = true
+    }
+  }
+
   access_entries = {
     # One access entry with a policy associated
     admin = {
