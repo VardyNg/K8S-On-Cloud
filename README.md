@@ -64,6 +64,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### Node Configuration & Networking
 - [Managed Node Group - Custom Launch Template](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/mng-custom-lt/README.md) ✅  
   Supply custom launch template to Managed Node Group  
+- [Kubelet Resource Reservation](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/kubelet-resource-reservation/README.md) ✅  
+  Configure kubelet and system OS resource reservation for improved cluster stability
 - [VPC Secondary CIDR](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/vpc-secondary-cidr/README.md) ✅  
   Configure EKS cluster to also use the secondary CIDR block of the VPC
 - [Fully Private Cluster](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fully-private-cluster/README.md) ✅  
