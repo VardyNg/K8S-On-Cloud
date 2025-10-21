@@ -61,42 +61,42 @@ resource "kubernetes_ingress_class_v1" "alb" {
 }
 
 # Ingress to create ALB using EKS Auto Mode
-resource "kubernetes_ingress_v1" "nginx_alb" {
-  metadata {
-    name      = "nginx-alb-ingress"
-    namespace = "default"
+# resource "kubernetes_ingress_v1" "nginx_alb" {
+#   metadata {
+#     name      = "nginx-alb-ingress"
+#     namespace = "default"
     
-    labels = {
-      app = "nginx"
-    }
-  }
+#     labels = {
+#       app = "nginx"
+#     }
+#   }
 
-  spec {
-    # Reference the IngressClass
-    ingress_class_name = kubernetes_ingress_class_v1.alb.metadata[0].name
+#   spec {
+#     # Reference the IngressClass
+#     ingress_class_name = kubernetes_ingress_class_v1.alb.metadata[0].name
     
-    rule {
-      http {
-        path {
-          path      = "/*"
-          path_type = "ImplementationSpecific"
+#     rule {
+#       http {
+#         path {
+#           path      = "/*"
+#           path_type = "ImplementationSpecific"
           
-          backend {
-            service {
-              name = kubernetes_service_v1.nginx.metadata[0].name
-              port {
-                number = 80
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+#           backend {
+#             service {
+#               name = kubernetes_service_v1.nginx.metadata[0].name
+#               port {
+#                 number = 80
+#               }
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }
 
-  depends_on = [
-    kubernetes_service_v1.nginx,
-    kubernetes_deployment_v1.nginx,
-    kubernetes_ingress_class_v1.alb
-  ]
-}
+#   depends_on = [
+#     kubernetes_service_v1.nginx,
+#     kubernetes_deployment_v1.nginx,
+#     kubernetes_ingress_class_v1.alb
+#   ]
+# }
