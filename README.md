@@ -40,7 +40,6 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Mount S3 Bucket to Pod
 - [Logical Volume Manager (LVM)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/csi-driver-lvm/README.md) ✅  
   Use LVM to create a volume and mount it to Pod
-
 ### Pod & Node Autoscaling
 - [Cluster Proportional Autoscaler (CPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cpa/README.md)  ✅  
   Scale pods based on the number of nodes/cores in cluster
@@ -104,6 +103,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Execute kubectl commands in EKS Cluster using AWS CodeBuild
 - [AWS Resilience Hub](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/fault-injection-simulator/README.md) ✅  
   Use AWS Resilience Hub - Fault Injection Service in EKS Cluster
+- [AWS Secret Controller for Secrets and Configuration Provider (ASCP)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/ascp/README.md) ✅  
+	Use ASCP to mount Secrets Manager secret to Pod as file or environment variable
 
 ### Tools to deploy EKS
 - [AWS CDK](/KaaS/Elastic%20Kubernetes%20Service(EKS)/CDK/simple/README.md) ✅  
