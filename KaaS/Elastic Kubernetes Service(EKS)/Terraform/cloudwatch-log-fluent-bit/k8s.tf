@@ -8,7 +8,7 @@ resource "kubernetes_namespace_v1" "ns" {
 
 resource "kubernetes_deployment_v1" "default" {
   metadata {
-    name = local.name
+    name      = local.name
     namespace = kubernetes_namespace_v1.ns.metadata.0.name
     labels = {
       app = "default"
@@ -33,13 +33,13 @@ resource "kubernetes_deployment_v1" "default" {
 
       spec {
         container {
-          image = "busybox"
-          name  = "logger"
+          image   = "busybox"
+          name    = "logger"
           command = ["sh", "-c", "while true; do echo $(date) 'Hello from the log writer!'; sleep 5; done"]
         }
 
       }
-      
+
     }
   }
 }

@@ -7,7 +7,7 @@ variable "fluent_bit_read_from_head" {
 }
 
 variable "eks_version" {
-  type = string
+  type    = string
   default = "1.31"
 }
 
