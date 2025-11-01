@@ -7,9 +7,6 @@ resource "aws_eks_node_group" "node-group" {
 		aws_subnet.subnet_primary_1.id,
 		aws_subnet.subnet_primary_2.id,
 		aws_subnet.subnet_primary_3.id,
-		aws_subnet.subnet_secondary_1.id,
-		aws_subnet.subnet_secondary_2.id,
-		aws_subnet.subnet_secondary_3.id,
 	]
 
   scaling_config {
