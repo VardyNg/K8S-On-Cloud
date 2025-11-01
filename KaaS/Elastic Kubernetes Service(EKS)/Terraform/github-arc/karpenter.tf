@@ -12,6 +12,7 @@ resource "helm_release" "karpenter" {
 	name             = "karpenter"
 	namespace        = kubernetes_namespace_v1.karpenter.metadata.0.name
 	create_namespace = true
+	
 
 	repository = "oci://public.ecr.aws/karpenter"
 	chart      = "karpenter"
@@ -77,6 +78,25 @@ resource "kubectl_manifest" "karpenter_ec2nodeclass_runner" {
 			"amiSelectorTerms" = [
 				{ "id" = data.aws_ssm_parameter.eks_al2023_ami.value }
 			],
+			blockDeviceMappings = [
+				{
+					deviceName = "/dev/xvda"
+					ebs = {
+						volumeSize = "100Gi"
+						volumeType = "gp3"
+						deleteOnTermination = true
+						encrypted = true
+					}
+				}
+			]
+			kubeReserved = {
+				cpu = "500m"
+				memory = "300Mi"
+			}
+			systemReserved = {
+				cpu = "100m"
+				memory = "100Mi"
+			}
 			tags = var.tags
 			userData = <<-EOT
 #!/bin/bash

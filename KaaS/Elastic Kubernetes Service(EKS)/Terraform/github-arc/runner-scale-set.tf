@@ -32,7 +32,7 @@ githubConfigUrl: "${var.github_config_url}"
 
 githubConfigSecret: "${kubernetes_secret_v1.pre_defined.metadata[0].name}"
 
-maxRunners: 5
+maxRunners: 20
 
 minRunners: 1
 
@@ -73,11 +73,11 @@ template:
           mountPath: /var/run
       resources:
         limits:
-          cpu: 2
-          memory: 4Gi
+          cpu: 3
+          memory: 6Gi
         requests:
-          cpu: 2
-          memory: 4Gi
+          cpu: 3
+          memory: 6Gi
     - name: dind
       image: docker:dind
       args:

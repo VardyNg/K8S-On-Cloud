@@ -1,11 +1,11 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "21.4.0"
 
-  cluster_name                    = local.name
-  cluster_version                 = var.eks_version
-  cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = true
+  name                    = local.name
+  kubernetes_version      = var.eks_version
+  endpoint_public_access  = true
+  endpoint_private_access = true
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -47,7 +47,7 @@ module "eks" {
     "karpenter.sh/discovery" = local.name
   })
 
-	cluster_addons = {
+	addons = {
 		coredns = {
 			most_recent = true
 
@@ -94,6 +94,12 @@ module "eks" {
 					}
 				]
 			})
+		}
+		kube-proxy = {
+			most_recent = true
+		}
+		vpc-cni = {
+			most_recent = true
 		}
   }
 
