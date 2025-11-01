@@ -69,6 +69,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Create a fully private EKS cluster
 - [Customize Cluster DNS Domain](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/custom-cluster-domain/README.md) ✅  
   Customize the DNS domain for the EKS cluster
+- [Security Groups for Pods](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/pod-security-group/README.md) ✅  
+	Assign Security Groups to Pods
 ### GPU
 - [nivida](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/nivida/README.md) 🔨  
   Provision GPU nodes
