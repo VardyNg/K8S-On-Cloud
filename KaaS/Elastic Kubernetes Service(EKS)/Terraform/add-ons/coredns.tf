@@ -6,10 +6,10 @@ resource "aws_eks_addon" "coredns" {
 
   # https://github.com/aws/amazon-vpc-cni-k8s/issues/2726#issuecomment-1869078906
   configuration_values = jsonencode({
-    autoScaling: {
-      enabled: true,
-      minReplicas: 4,
-      maxReplicas: 10
+    autoScaling : {
+      enabled : true,
+      minReplicas : 4,
+      maxReplicas : 10
     },
     # affinity: {
     #   nodeAffinity: {
@@ -38,7 +38,7 @@ resource "aws_eks_addon" "coredns" {
     #     }
     #   }
     # }
-    nodeSelector: {
+    nodeSelector : {
       some_label = "true"
     }
   })

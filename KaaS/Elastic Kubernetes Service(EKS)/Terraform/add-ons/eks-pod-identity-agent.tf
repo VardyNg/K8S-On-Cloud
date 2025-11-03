@@ -5,7 +5,7 @@ resource "aws_eks_addon" "eks-pod-identity-agent" {
   resolve_conflicts_on_update = "OVERWRITE"
 
   configuration_values = jsonencode({
-    nodeSelector: {
+    nodeSelector : {
       some_label = "true"
     }
   })

@@ -3,6 +3,6 @@ variable "region" {
 }
 
 variable "eks_version" {
-  type = string
+  type    = string
   default = "1.31"
 }

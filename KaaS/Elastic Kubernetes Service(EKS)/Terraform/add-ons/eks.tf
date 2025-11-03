@@ -1,11 +1,11 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "21.4.0"
 
-  cluster_name                   = local.name
-  cluster_version                = var.eks_version
-  cluster_endpoint_public_access = true
-  cluster_endpoint_private_access = true
+  name                    = local.name
+  kubernetes_version      = var.eks_version
+  endpoint_public_access  = true
+  endpoint_private_access = true
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -39,10 +39,10 @@ module "eks" {
     # Allow port 10251 traffic from the cluster security group (metric server)
     ingress_10251_self = {
       description                   = "Allow metric server access from cluster security group"
-      protocol                     = "tcp"
-      from_port                    = 10251
-      to_port                      = 10251
-      type                         = "ingress"
+      protocol                      = "tcp"
+      from_port                     = 10251
+      to_port                       = 10251
+      type                          = "ingress"
       source_cluster_security_group = true
     }
   }
@@ -57,7 +57,7 @@ module "eks" {
         admin = {
           policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
-            type       = "cluster"
+            type = "cluster"
           }
         }
       }

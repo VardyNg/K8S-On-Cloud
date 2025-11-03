@@ -5,8 +5,8 @@ resource "aws_eks_addon" "aws-efs-csi-driver" {
   resolve_conflicts_on_update = "OVERWRITE"
 
   configuration_values = jsonencode({
-    controller: {
-      nodeSelector: {
+    controller : {
+      nodeSelector : {
         some_label = "true"
       }
     }
