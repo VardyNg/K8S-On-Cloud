@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "21.4.0"
+  version = "21.8.0"
 
   name                    = local.name
   kubernetes_version      = var.eks_version
@@ -44,6 +44,22 @@ module "eks" {
   addons = {
     amazon-cloudwatch-observability = {
       most_recent = true
+      configuration_values = jsonencode({
+        containerLogs = {
+          enabled = true
+          fluentBit = {
+            config = {
+              service       = file("${path.module}/fluent-bit-service.conf")
+              customParsers = file("${path.module}/fluent-bit-parsers.conf")
+              extraFiles = {
+                "application-log.conf" = file("${path.module}/application-log.conf")
+                "dataplane-log.conf"   = file("${path.module}/dataplane-log.conf")
+                "host-log.conf"        = file("${path.module}/host-log.conf")
+              }
+            }
+          }
+        }
+      })
     }
     vpc-cni = {
       most_recent = true
