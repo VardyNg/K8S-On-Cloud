@@ -1,0 +1,17 @@
+{
+	"servers": {
+		"EKS MCP Server": {
+			"command": "uvx",
+			"args": [
+				"awslabs.eks-mcp-server@latest",
+				"--allow-write",
+				"--allow-sensitive-data-access"
+			],
+			"env": {
+				"FASTMCP_LOG_LEVEL": "ERROR"
+			},
+			"type": "stdio"
+		}
+	},
+	"inputs": []
+}
