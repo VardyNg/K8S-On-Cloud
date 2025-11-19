@@ -43,7 +43,9 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 ### Local Ephemeral Storage
 - [Logical Volume Manager (LVM)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/csi-driver-lvm/README.md) ✅  
   Use LVM to create a volume and mount it to Pod
-	
+- [Local Path Provisioner](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/local-path-provisioner/README.md) ✅ 
+	Use Local Path Provisioner to create a volume and mount it to Pod (NVMe support)
+
 ### Pod & Node Autoscaling
 - [Cluster Proportional Autoscaler (CPA)](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cpa/README.md)  ✅  
   Scale pods based on the number of nodes/cores in cluster
