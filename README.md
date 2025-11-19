@@ -20,7 +20,8 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
   Assign IAM Roles to Pods via EKS Pod Identity Association
 - [Access Entries](/KaaS//Elastic%20Kubernetes%20Service(EKS)/Terraform/access-entries/README.md) ✅  
   Grant cluster access right to IAM User/Role via Access Entries
-
+- [aws-auth only cluster](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/aws-auth-only/README.md) ✅  
+	Create an EKS cluster that only uses aws-auth ConfigMap
 ### Load Balancer and Service 
 - [Load Balancer Controller](/KaaS/Elastic%20Kubernetes%20Service%28EKS%29/Terraform/load-balancer/README.md) ✅  
   Create ALB via Ingress, NLB via Service, and use TargetGroupBinding with Load Balancer Controller (LBC)
