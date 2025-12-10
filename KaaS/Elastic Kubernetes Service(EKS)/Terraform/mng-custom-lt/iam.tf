@@ -33,3 +33,9 @@ resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
   role       = aws_iam_role.eks_worker_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
+
+# Attach the AmazonSSMManagedInstanceCore policy for SSM access
+resource "aws_iam_role_policy_attachment" "eks_ssm_instance_core_policy" {
+	role       = aws_iam_role.eks_worker_role.name
+	policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}

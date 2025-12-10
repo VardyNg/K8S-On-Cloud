@@ -33,12 +33,12 @@ spec:
 }
 
 data "aws_ssm_parameter" "eks_al2023_ami" {
-  name = "/aws/service/eks/optimized-ami/1.29/amazon-linux-2023/x86_64/standard/recommended/image_id"
+  name = "/aws/service/eks/optimized-ami/${var.eks_version}/amazon-linux-2023/x86_64/standard/recommended/image_id"
 }
 
-resource "aws_eks_node_group" "mng-custom" {
+resource "aws_eks_node_group" "mng-custom-al2023" {
   cluster_name    = module.eks.cluster_name
-  node_group_name = "mng-custom"
+  node_group_name = "mng-custom-al2023"
   node_role_arn   = aws_iam_role.eks_worker_role.arn
 
   subnet_ids = module.vpc.private_subnets
