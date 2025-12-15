@@ -26,7 +26,6 @@ resource "kubernetes_deployment" "my_deployment" {
 			metadata {
 				labels = {
 					app  = "my-app"
-					role = "my-role"
 				}
 			}
 

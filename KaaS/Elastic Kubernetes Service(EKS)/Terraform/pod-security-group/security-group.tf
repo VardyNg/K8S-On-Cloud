@@ -9,7 +9,7 @@ resource "kubernetes_manifest" "security_group_policy" {
 		spec = {
 			podSelector = {
 				matchLabels = {
-					role = "my-role"
+					app = "my-app"
 				}
 			}
 			securityGroups = {
