@@ -98,12 +98,6 @@ resource "kubectl_manifest" "karpenter_ec2nodeclass_runner" {
 				memory = "100Mi"
 			}
 			tags = var.tags
-			userData = <<-EOT
-#!/bin/bash
-echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-echo "net.ipv6.default.disable_ipv6 = 1" >> /etc/sysctl.conf
-echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
-      EOT
 		}
 	})
 
