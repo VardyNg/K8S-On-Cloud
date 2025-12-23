@@ -52,9 +52,6 @@ module "eks" {
 			most_recent = true
 
 			configuration_values = jsonencode({
-				nodeSelector: {
-					controller-node = "true"
-				}
 				tolerations: [
 					{
 						key:      "controller-node"
