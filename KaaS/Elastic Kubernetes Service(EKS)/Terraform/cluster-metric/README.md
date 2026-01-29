@@ -1,0 +1,1 @@
+## This template illustrate the access to cluster metrics using DaemonSet Pods
