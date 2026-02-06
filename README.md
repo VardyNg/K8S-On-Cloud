@@ -78,7 +78,7 @@ This repository contains IaC scripts to deploy Kubernetes Cluster on different C
 - [Security Groups for Pods](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/pod-security-group/README.md) ✅  
 	Assign Security Groups to Pods
 - [Cluster Metric Access](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/cluster-metric/README.md) ✅  
-	Fetch cluster metrics using DaemonSet Pods
+	Fetch cluster metrics using DaemonSet Pods, and create custom metric from CloudWatch Logs
 
 ### GPU
 - [nivida](/KaaS/Elastic%20Kubernetes%20Service(EKS)/Terraform/nivida/README.md) 🔨  

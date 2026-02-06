@@ -1,1 +1,1 @@
-## This template illustrate the access to cluster metrics using DaemonSet Pods
+## This template illustrate the access to cluster metrics using DaemonSet Pods and create custom metric from CloudWatch Logs
