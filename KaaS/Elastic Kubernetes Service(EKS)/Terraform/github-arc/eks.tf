@@ -27,19 +27,11 @@ module "eks" {
         }
       }
     }
-    # Karpenter access
+    # Karpenter node access - must be EC2_LINUX so nodes join the system:nodes group
+    # and kubelet-serving CSRs get auto-approved (required for logs/exec)
     karpenter = {
-      kubernetes_groups = []
-      principal_arn     = aws_iam_role.karpenter_node_role.arn
-
-      policy_associations = {
-        karpenter = {
-          policy_arn = "arn:${data.aws_partition.current.partition}:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope = {
-            type = "cluster"
-          }
-        }
-      }
+      type          = "EC2_LINUX"
+      principal_arn = aws_iam_role.karpenter_node_role.arn
     }
   }
 

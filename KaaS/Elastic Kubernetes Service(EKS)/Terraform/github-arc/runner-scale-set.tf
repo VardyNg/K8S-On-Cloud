@@ -23,7 +23,7 @@ resource "kubernetes_secret_v1" "pre_defined" {
 resource "helm_release" "arc_runner_set" {
   name             = "arc-runner-set-eks"
   namespace        = kubernetes_namespace.arc_runners.metadata[0].name
-
+	version 				 = "0.13.1"
   repository = "oci://ghcr.io/actions/actions-runner-controller-charts"
   chart      = "gha-runner-scale-set"
   values     = [
@@ -34,7 +34,10 @@ githubConfigSecret: "${kubernetes_secret_v1.pre_defined.metadata[0].name}"
 
 maxRunners: 20
 
-minRunners: 1
+minRunners: 0
+
+containerMode:
+  type: "kubernetes-novolume"
 
 listenerTemplate:
   spec:
@@ -52,57 +55,20 @@ listenerTemplate:
 
 template:
   spec:
-    initContainers:
-    - name: init-dind-externals
-      image: ghcr.io/actions/actions-runner:latest
-      command: ["cp", "-r", "/home/runner/externals/.", "/home/runner/tmpDir/"]
-      volumeMounts:
-        - name: dind-externals
-          mountPath: /home/runner/tmpDir
     containers:
     - name: runner
       image: ghcr.io/actions/actions-runner:latest
       command: ["/home/runner/run.sh"]
       env:
-        - name: DOCKER_HOST
-          value: unix:///var/run/docker.sock
-      volumeMounts:
-        - name: work
-          mountPath: /home/runner/_work
-        - name: dind-sock
-          mountPath: /var/run
+        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+          value: "false"
       resources:
         limits:
-          cpu: 3
-          memory: 6Gi
+          cpu: "2"
+          memory: 3Gi
         requests:
-          cpu: 3
-          memory: 6Gi
-    - name: dind
-      image: docker:dind
-      args:
-        - dockerd
-        - --host=unix:///var/run/docker.sock
-        - --group=$(DOCKER_GROUP_GID)
-      env:
-        - name: DOCKER_GROUP_GID
-          value: "123"
-      securityContext:
-        privileged: true
-      volumeMounts:
-        - name: work
-          mountPath: /home/runner/_work
-        - name: dind-sock
-          mountPath: /var/run
-        - name: dind-externals
-          mountPath: /home/runner/externals
-    volumes:
-    - name: work
-      emptyDir: {}
-    - name: dind-sock
-      emptyDir: {}
-    - name: dind-externals
-      emptyDir: {}
+          cpu: "1"
+          memory: 2Gi
 EOT
   ]
 

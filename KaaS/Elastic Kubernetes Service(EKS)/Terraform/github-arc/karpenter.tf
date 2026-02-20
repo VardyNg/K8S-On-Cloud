@@ -44,7 +44,7 @@ tolerations:
     value: "true"
     effect: "NoSchedule"
 
-logLevel: debug
+logLevel: info
 EOT
 	]
 
@@ -82,7 +82,7 @@ resource "kubectl_manifest" "karpenter_ec2nodeclass_runner" {
 				{
 					deviceName = "/dev/xvda"
 					ebs = {
-						volumeSize = "100Gi"
+						volumeSize = "50Gi"
 						volumeType = "gp3"
 						deleteOnTermination = true
 						encrypted = true
@@ -128,10 +128,14 @@ spec:
         - key: node.kubernetes.io/instance-type
           operator: In
           values: [
-            "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge",
-            "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge",
-            "c5a.large", "c5a.xlarge", "c5a.2xlarge", "c5a.4xlarge",
-            "c5n.large", "c5n.xlarge", "c5n.2xlarge", "c5n.4xlarge"
+            "c5.2xlarge", "c5.4xlarge",
+            "c5a.2xlarge", "c5a.4xlarge",
+            "c5n.2xlarge", "c5n.4xlarge",
+            "c6a.2xlarge", "c6a.4xlarge",
+            "c6i.2xlarge", "c6i.4xlarge",
+            "c7a.2xlarge", "c7a.4xlarge",
+            "m5.2xlarge", "m5a.2xlarge",
+            "m6a.2xlarge", "m6i.2xlarge"
           ]
       nodeClassRef:
         group: karpenter.k8s.aws
@@ -141,8 +145,8 @@ spec:
   limits:
     cpu: 1000
   disruption:
-    consolidationPolicy: WhenEmptyOrUnderutilized
-    consolidateAfter: 15s
+    consolidationPolicy: WhenEmpty
+    consolidateAfter: 30s
 EOT
 
 	depends_on = [
