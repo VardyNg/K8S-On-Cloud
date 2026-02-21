@@ -44,6 +44,9 @@ module "eks" {
 			most_recent = true
 
 			configuration_values = jsonencode({
+				nodeSelector: {
+					controller-node = "true"
+				}
 				tolerations: [
 					{
 						key:      "controller-node"
@@ -52,14 +55,6 @@ module "eks" {
 						effect:   "NoSchedule"
 					}
 				]
-				resources: {
-					limits: {
-						cpu: "2"
-					}
-					requests: {
-						cpu: "0.5"
-					}
-				}
 				autoScaling: {
 					enabled: true,
 					minReplicas: 2,
@@ -89,6 +84,37 @@ module "eks" {
 		}
 		vpc-cni = {
 			most_recent = true
+		}
+		aws-efs-csi-driver = {
+			most_recent = true
+			service_account_role_arn = aws_iam_role.efs_csi_driver.arn
+
+			configuration_values = jsonencode({
+				controller: {
+					replicaCount: 1,
+					nodeSelector: {
+						controller-node = "true"
+					},
+					tolerations: [
+						{
+							key:      "controller-node"
+							operator: "Equal"
+							value:    "true"
+							effect:   "NoSchedule"
+						}
+					]
+				}
+				node: {
+					tolerations: [
+						{
+							key:      "controller-node"
+							operator: "Equal"
+							value:    "true"
+							effect:   "NoSchedule"
+						}
+					]
+				}
+			})
 		}
   }
 

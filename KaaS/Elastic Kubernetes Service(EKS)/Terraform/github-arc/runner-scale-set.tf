@@ -62,6 +62,9 @@ template:
       env:
         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
           value: "false"
+      volumeMounts:
+        - name: cache
+          mountPath: /home/runner/.cache
       resources:
         limits:
           cpu: "2"
@@ -69,6 +72,10 @@ template:
         requests:
           cpu: "1"
           memory: 2Gi
+    volumes:
+    - name: cache
+      persistentVolumeClaim:
+        claimName: runner-cache
 EOT
   ]
 
