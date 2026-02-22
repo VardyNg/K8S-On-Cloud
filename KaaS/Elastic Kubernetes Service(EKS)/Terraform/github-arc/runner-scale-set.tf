@@ -55,6 +55,13 @@ listenerTemplate:
 
 template:
   spec:
+    topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/component: runner
     containers:
     - name: runner
       image: ghcr.io/actions/actions-runner:latest

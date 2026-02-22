@@ -1,7 +1,7 @@
 resource "aws_launch_template" "controller_custom_lt" {
   name_prefix   = "${local.name}-controller-lt"
   image_id      = data.aws_ssm_parameter.eks_al2023_ami.value
-  instance_type = "t3.medium"
+  instance_type = "t4g.medium"
 
   user_data = base64encode(<<-EOF
 Content-Type: multipart/mixed; boundary="BOUNDARY"
