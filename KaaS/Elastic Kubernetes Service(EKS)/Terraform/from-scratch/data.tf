@@ -10,7 +10,7 @@ resource "random_id" "random_string" {
 locals {
   name   = lower("${basename(path.cwd)}-${substr(base64encode(random_id.random_string.b64_url), 0, 3)}")
   region = var.region
-
+	cluster_oidc = replace(aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
