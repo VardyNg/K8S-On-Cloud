@@ -64,11 +64,13 @@ template:
           app.kubernetes.io/component: runner
     containers:
     - name: runner
-      image: ghcr.io/actions/actions-runner:latest
+      image: ghcr.io/falcondev-oss/actions-runner:latest
       command: ["/home/runner/run.sh"]
       env:
         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
           value: "false"
+        - name: CUSTOM_ACTIONS_RESULTS_URL
+          value: "http://gha-cache-server.arc-runners.svc.cluster.local:3000/"
       volumeMounts:
         - name: cache
           mountPath: /home/runner/.cache

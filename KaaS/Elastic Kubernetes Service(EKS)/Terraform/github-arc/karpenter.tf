@@ -118,7 +118,7 @@ spec:
       requirements:
         - key: kubernetes.io/arch
           operator: In
-          values: [arm64]
+          values: [amd64]
         - key: kubernetes.io/os
           operator: In
           values: [linux]
@@ -128,18 +128,10 @@ spec:
         - key: node.kubernetes.io/instance-type
           operator: In
           values: [
-            "c6g.large", "c6g.xlarge", "c6g.2xlarge",
-            "c6gn.large", "c6gn.xlarge", "c6gn.2xlarge",
-            "c7g.large", "c7g.xlarge", "c7g.2xlarge",
-            "c7gn.large", "c7gn.xlarge", "c7gn.2xlarge",
-            "c8g.large", "c8g.xlarge", "c8g.2xlarge",
-            "m6g.large", "m6g.xlarge", "m6g.2xlarge",
-            "m7g.large", "m7g.xlarge", "m7g.2xlarge",
-            "m8g.large", "m8g.xlarge", "m8g.2xlarge",
-            "r6g.large", "r6g.xlarge",
-            "r7g.large", "r7g.xlarge",
-            "r8g.large", "r8g.xlarge",
-            "t4g.large", "t4g.xlarge", "t4g.2xlarge"
+            "c6i.xlarge", "c6a.xlarge",
+            "c7i.xlarge", "c7a.xlarge",
+            "m6i.xlarge", "m6a.xlarge",
+            "m7i.xlarge", "m7a.xlarge"
           ]
       nodeClassRef:
         group: karpenter.k8s.aws
