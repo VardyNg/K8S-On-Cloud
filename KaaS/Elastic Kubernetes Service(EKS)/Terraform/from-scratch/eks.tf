@@ -1,3 +1,21 @@
+resource "aws_security_group" "eks_cluster_additional" {
+  name        = "${local.name}-eks-cluster-additional"
+  description = "Additional security group for EKS cluster, attached to all nodes"
+  vpc_id      = aws_vpc.main.id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "${local.name}-eks-cluster-additional"
+  }
+}
+
 resource "aws_eks_cluster" "cluster" {
   name = "${local.name}"
 
@@ -17,12 +35,17 @@ resource "aws_eks_cluster" "cluster" {
       aws_subnet.subnet_1.id,
       aws_subnet.subnet_2.id,
     ]
+
+    security_group_ids = [
+      aws_security_group.eks_cluster_additional.id,
+    ]
   }
 
   depends_on = [
     aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
   ]
 }
+
 
 resource "aws_eks_node_group" "default" {
   cluster_name    = aws_eks_cluster.cluster.name
