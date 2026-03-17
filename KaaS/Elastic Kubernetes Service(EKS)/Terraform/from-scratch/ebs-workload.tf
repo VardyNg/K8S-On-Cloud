@@ -69,6 +69,10 @@ resource "kubernetes_deployment_v1" "ebs-default" {
       }
 
       spec {
+        node_selector = {
+          "kubernetes.io/os" = "linux"
+        }
+
         container {
           image = "centos:8"
           name  = "app"
