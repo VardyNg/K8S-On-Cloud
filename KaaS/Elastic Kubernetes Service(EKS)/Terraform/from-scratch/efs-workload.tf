@@ -39,9 +39,9 @@ resource "kubernetes_persistent_volume_claim_v1" "default" {
   }
 }
 
-resource "kubernetes_deployment_v1" "default" {
+resource "kubernetes_deployment_v1" "ns-default" {
   metadata {
-    name = local.name
+    name = "cw-test-deployment"
     namespace = kubernetes_namespace_v1.efs-ns.metadata.0.name
     labels = {
       app = "default"
