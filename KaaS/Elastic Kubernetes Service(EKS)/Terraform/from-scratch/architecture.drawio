@@ -1307,13 +1307,13 @@
         </mxGraphModel>
     </diagram>
     <diagram id="2R_4LWWMnnDwOxgmFGqS" name="CloudWatch Observability Agent">
-        <mxGraphModel dx="1766" dy="938" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="3205" dy="1250" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="rpdob41DqUQyRmUKG7Y6-1" value="Kubernetes" parent="0"/>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-1" value="Kubernetes" style="fillColor=none;strokeColor=#5A6C86;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#5A6C86;" vertex="1" parent="rpdob41DqUQyRmUKG7Y6-1">
-                    <mxGeometry x="90" y="190" width="970" height="850" as="geometry"/>
+                    <mxGeometry x="-110" y="190" width="1170" height="850" as="geometry"/>
                 </mxCell>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-2" value="Worker Nodes" parent="0"/>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-32" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="Xe_MRCqsf-tYm_7JpZT6-2">
@@ -1360,7 +1360,7 @@
                     <mxGeometry x="500" y="1151.5" width="78" height="44" as="geometry"/>
                 </mxCell>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-37" value="arn:aws:iam::aws:policy/&lt;br&gt;CloudWatchAgentServerPolicy" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#BF0816;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.permissions;" vertex="1" parent="Xe_MRCqsf-tYm_7JpZT6-2">
-                    <mxGeometry x="266" y="1140" width="53.26" height="67" as="geometry"/>
+                    <mxGeometry x="750" y="1140" width="53.26" height="67" as="geometry"/>
                 </mxCell>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-42" value="Monitor host's &lt;br&gt;metrics and traces" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.995;exitY=0.63;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="Xe_MRCqsf-tYm_7JpZT6-2" source="Xe_MRCqsf-tYm_7JpZT6-15" target="Xe_MRCqsf-tYm_7JpZT6-5">
                     <mxGeometry relative="1" as="geometry">
@@ -1477,6 +1477,27 @@
                 </mxCell>
                 <mxCell id="Xe_MRCqsf-tYm_7JpZT6-69" value="" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=pod" vertex="1" parent="Xe_MRCqsf-tYm_7JpZT6-67">
                     <mxGeometry x="510" y="261" width="50" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="Xe_MRCqsf-tYm_7JpZT6-71" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="Xe_MRCqsf-tYm_7JpZT6-67" source="Xe_MRCqsf-tYm_7JpZT6-70" target="Xe_MRCqsf-tYm_7JpZT6-35">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="5" y="1180"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Xe_MRCqsf-tYm_7JpZT6-72" value="IRSA" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Xe_MRCqsf-tYm_7JpZT6-71">
+                    <mxGeometry x="-0.7523" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Xe_MRCqsf-tYm_7JpZT6-70" value="amazon-cloudwatch/&lt;br&gt;cloudwatch-agent" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=sa" vertex="1" parent="Xe_MRCqsf-tYm_7JpZT6-67">
+                    <mxGeometry x="-20" y="710" width="50" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="Xe_MRCqsf-tYm_7JpZT6-73" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.995;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="Xe_MRCqsf-tYm_7JpZT6-67" source="Xe_MRCqsf-tYm_7JpZT6-7" target="Xe_MRCqsf-tYm_7JpZT6-70">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="Xe_MRCqsf-tYm_7JpZT6-74" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.995;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="Xe_MRCqsf-tYm_7JpZT6-67" source="Xe_MRCqsf-tYm_7JpZT6-12" target="Xe_MRCqsf-tYm_7JpZT6-70">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

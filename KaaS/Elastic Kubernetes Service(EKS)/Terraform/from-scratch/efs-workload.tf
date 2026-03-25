@@ -39,9 +39,9 @@ resource "kubernetes_persistent_volume_claim_v1" "default" {
   }
 }
 
-resource "kubernetes_deployment_v1" "ns-default" {
+resource "kubernetes_deployment_v1" "efs-workload" {
   metadata {
-    name = "cw-test-deployment"
+    name = "efs-test-deployment"
     namespace = kubernetes_namespace_v1.efs-ns.metadata.0.name
     labels = {
       app = "default"
@@ -63,8 +63,13 @@ resource "kubernetes_deployment_v1" "ns-default" {
           app = "default"
         }
       }
+			
 
       spec {
+				node_selector = {
+          "kubernetes.io/os" = "linux"
+        }
+
         container {
           image = "nginx:1.21.6"
           name  = "app"

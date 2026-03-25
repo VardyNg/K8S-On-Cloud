@@ -73,6 +73,24 @@ resource "kubernetes_deployment_v1" "ebs-default" {
           "kubernetes.io/os" = "linux"
         }
 
+        affinity {
+          pod_affinity {
+            preferred_during_scheduling_ignored_during_execution {
+              weight = 100
+              pod_affinity_term {
+                label_selector {
+                  match_expressions {
+                    key      = "app"
+                    operator = "In"
+                    values   = ["default"]
+                  }
+                }
+                topology_key = "kubernetes.io/hostname"
+              }
+            }
+          }
+        }
+
         container {
           image = "centos:8"
           name  = "app"
