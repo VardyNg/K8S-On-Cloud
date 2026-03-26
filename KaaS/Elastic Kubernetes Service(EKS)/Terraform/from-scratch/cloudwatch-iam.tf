@@ -25,8 +25,3 @@ resource "aws_iam_role_policy_attachment" "cw_controller_attach" {
   role       = aws_iam_role.cloudwatch_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
-
-resource "aws_iam_role_policy_attachment" "cw_node_attach" {
-  role       = aws_iam_role.eks_worker_node.name
-  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-}

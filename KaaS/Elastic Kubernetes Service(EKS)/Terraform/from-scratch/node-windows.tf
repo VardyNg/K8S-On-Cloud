@@ -35,7 +35,7 @@ resource "aws_launch_template" "windows" {
 resource "aws_eks_node_group" "windows" {
   cluster_name    = aws_eks_cluster.cluster.name
   node_group_name = "${local.name}-windows"
-  node_role_arn   = aws_iam_role.eks_worker_role.arn
+  node_role_arn   = aws_iam_role.windows_worker_role.arn
   subnet_ids      = [
 		aws_subnet.subnet_1.id,
 		aws_subnet.subnet_2.id,
@@ -71,10 +71,49 @@ resource "aws_eks_node_group" "windows" {
   # Ensure that IAM Role permissions and launch template are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
-    aws_iam_role_policy_attachment.eks_worker_node_policy,
-    aws_iam_role_policy_attachment.eks_ecr_readonly_policy,
-    aws_iam_role_policy_attachment.eks_cni_policy,
+    aws_iam_role_policy_attachment.windows_worker_node_policy,
+    aws_iam_role_policy_attachment.windows_ecr_readonly_policy,
     aws_launch_template.windows,
     aws_eks_cluster.cluster
   ]
+}
+
+# IAM Role for EKS worker nodes
+resource "aws_iam_role" "windows_worker_role" {
+  name = "${local.name}-windows-worker-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+# Attach the AmazonEKSWorkerNodePolicy to the IAM Role
+resource "aws_iam_role_policy_attachment" "windows_worker_node_policy" {
+  role       = aws_iam_role.windows_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
+# Attach the AmazonEC2ContainerRegistryReadOnly policy to allow access to ECR
+resource "aws_iam_role_policy_attachment" "windows_ecr_readonly_policy" {
+  role       = aws_iam_role.windows_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+resource "aws_iam_role_policy_attachment" "windows_cw_agent_policy" {
+  role       = aws_iam_role.windows_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "windows_ssm_agent_policy" {
+  role       = aws_iam_role.windows_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
