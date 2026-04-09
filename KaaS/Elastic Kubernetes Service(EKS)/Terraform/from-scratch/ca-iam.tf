@@ -12,7 +12,7 @@ resource "aws_iam_role" "cluster_autoscaler" {
         },
         Condition = {
           StringEquals = {
-            "${local.cluster_oidc}:sub" = "system:serviceaccount:kube-system:cluster-autoscaler"
+            "${local.cluster_oidc}:sub" = "system:serviceaccount:kube-system:cluster-autoscaler-sa"
           }
         }
       }
@@ -26,19 +26,31 @@ resource "aws_iam_policy" "cluster_autoscaler" {
 
   policy = jsonencode({
     Version = "2012-10-17",
-    Statement = [{
-      Effect = "Allow",
-      Action = [
-        "autoscaling:DescribeAutoScalingGroups",
-        "autoscaling:DescribeAutoScalingInstances",
-        "autoscaling:DescribeLaunchConfigurations",
-        "autoscaling:DescribeTags",
-        "autoscaling:SetDesiredCapacity",
-        "autoscaling:TerminateInstanceInAutoScalingGroup",
-        "ec2:DescribeLaunchTemplateVersions"
-      ],
-      Resource = "*"
-    }]
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeScalingActivities",
+          "ec2:DescribeImages",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeLaunchTemplateVersions",
+          "ec2:GetInstanceTypesFromInstanceRequirements",
+          "eks:DescribeNodegroup"
+        ],
+        Resource = ["*"]
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup"
+        ],
+        Resource = ["*"]
+      }
+    ]
   })
 }
 

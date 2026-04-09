@@ -23,10 +23,16 @@ spec:
     cidr: ${aws_eks_cluster.cluster.kubernetes_network_config.0.service_ipv4_cidr}
   kubelet:
     flags:
-    - --node-labels=nodeClass=A
+    - --node-labels=scaling-group=cluster-autoscaler
 --BOUNDARY--
   EOF
   )
+}
+
+resource "aws_eks_access_entry" "ca_ng" {
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = aws_iam_role.ca_eks_worker_role.arn
+  type          = "EC2_LINUX"
 }
 
 resource "aws_eks_node_group" "ca-ng" {

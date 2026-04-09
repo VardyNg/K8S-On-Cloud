@@ -1,6 +1,6 @@
 # IAM Role for EKS worker nodes
 resource "aws_iam_role" "ca_eks_worker_role" {
-  name = "${local.name}-eks-worker-role"
+  name = "${local.name}-ca-worker-node-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
